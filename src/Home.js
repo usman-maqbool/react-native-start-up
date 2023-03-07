@@ -34,9 +34,9 @@ export default function Home({ navigation }) {
   return (
     <NewBack>
       <Logo />
-      <Header>Login Template</Header>
+      {/* <Header>Login Template</Header> */}
       <Paragraph>
-        The easiest way to start with your amazing application.
+       Welcome to Zero Cheating. Please Login to access your account, or if you don’t have any account then Sign Up.
       </Paragraph>
       <Button
         mode="contained"

@@ -124,9 +124,6 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./src/Home"
-import Login from './src/Login';
-import Signup from './src/Signup';
-import ForgetPassword from './src/ForgetPassword';
 import NewLogin from './src/NewLogin';
 import Dashboard from './src/Dashboard';
 import NewSignUp from './src/NewSignUp';
@@ -139,9 +136,6 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="Sigup" component={Signup}/>
-        <Stack.Screen name="Fgp" component={ForgetPassword}/>
         <Stack.Screen name="NewLogin" component={NewLogin}/>
         <Stack.Screen name="NewSignup" component={NewSignUp}/>
         <Stack.Screen name="Dashboard" component={Dashboard}/>
