@@ -5,8 +5,9 @@ export const theme = {
   colors: {
     ...DefaultTheme.colors,
     text: '#000000',
-    primary: '#560CCE',
+    primary: '#E48924',
     secondary: '#414757',
+    active: '#87CEEB',
     error: '#f13a59',
   },
 }

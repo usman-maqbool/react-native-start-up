@@ -1,6 +1,9 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { ImageBackground, Dimensions, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { theme } from './Theme'
+
+const windowHeight = Dimensions.get('window').height;
+
 
 export default function Background({ children }) {
   return (
@@ -23,12 +26,13 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   container: {
+    height: windowHeight * 0.5,
     flex: 1,
     padding: 20,
     width: '100%',
     maxWidth: 340,
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 })

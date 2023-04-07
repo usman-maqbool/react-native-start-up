@@ -7,7 +7,7 @@ import Background from './Background'
 import Logo from './Logo'
 import Button from './Button'
 import Header from './Header'
-import TextInput from './TextInput'
+import TextInputView from './TextInput'
 import BackButton from './BackButton'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
@@ -34,7 +34,7 @@ const NewLogin = ({ navigation }) => {
     <BackButton goBack={navigation.goBack} />
     <Logo />
     <Header>Welcome back.</Header>
-    <TextInput
+    <TextInputView
       label="Email"
       returnKeyType="next"
       value={email.value}
@@ -46,7 +46,7 @@ const NewLogin = ({ navigation }) => {
       textContentType="emailAddress"
       keyboardType="email-address"
     />
-    <TextInput
+    <TextInputView
       label="Password"
       returnKeyType="done"
       value={password.value}

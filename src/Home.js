@@ -29,6 +29,7 @@ import Logo from './Logo'
 import Header from './Header'
 import Button from './Button'
 import Paragraph from './Paragraph'
+import Registration from './Registration'
 
 export default function Home({ navigation }) {
   return (
@@ -49,6 +50,18 @@ export default function Home({ navigation }) {
         onPress={() => navigation.navigate('NewSignup')}
       >
         Sign Up
+      </Button>
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate('Registration')}
+      >
+        Registration
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('Scaning')}
+      >
+        Scaning
       </Button>
     </NewBack>
   )

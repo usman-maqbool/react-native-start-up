@@ -5,7 +5,7 @@ import NewBack from './NewBack'
 import Logo from './Logo'
 import Header from './Header'
 import Button from './Button'
-import TextInput from './TextInput'
+import TextInputView from './TextInput'
 import BackButton from './BackButton'
 import { theme } from './Theme'
 import { emailValidator } from './emailValidator'
@@ -38,7 +38,7 @@ export default function RegisterScreen({ navigation }) {
       <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Create Account</Header>
-      <TextInput
+      <TextInputView
         label="Name"
         returnKeyType="next"
         value={name.value}
@@ -46,7 +46,7 @@ export default function RegisterScreen({ navigation }) {
         error={!!name.error}
         errorText={name.error}
       />
-      <TextInput
+      <TextInputView
         label="Email"
         returnKeyType="next"
         value={email.value}
@@ -58,7 +58,7 @@ export default function RegisterScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <TextInputView
         label="Password"
         returnKeyType="done"
         value={password.value}
