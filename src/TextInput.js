@@ -8,10 +8,16 @@ export default function TextInputView({ errorText, description, ...props }) {
     <View style={styles.container}>
       <Input
         style={styles.input}
+        theme={{
+          colors:{
+            primary: theme.colors.active,
+            label:'black'
+          }
+        }}
         selectionColor={theme.colors.surface}
         underlineColor=""
         mode="contained"
-        {...props}
+        {...props}       
       />
       {description && !errorText ? (
         <Text style={styles.description}>{description}</Text>
