@@ -86,9 +86,9 @@ export default function Registration({ navigation }) {
 
             <View>
             <Text style={[styles.text]}>
-            Make sure your mobile device is connected to 
-            the web app, Your verification will only proceed if 
-            connected to the web app
+                Make sure your mobile device is connected to 
+                the web app, Your verification will only proceed if 
+                connected to the web app
                 </Text>
             </View>
         </NewBack>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     user: {
         fontSize: 16,
-        fontWeight: 600,
+        fontWeight: 500,
         color: 'black',
         marginHorizontal: 15,
         marginTop: 6,

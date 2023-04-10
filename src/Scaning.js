@@ -1,61 +1,89 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image,Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import { theme } from './Theme'
-import Button from './Button'
-import NewBack from './NewBack'
+import Container from './Container'
 import BackButton from './BackButton'
 import Logo from './Logo'
-import TextInputView from './TextInput'
-import { emailValidator } from './emailValidator'
-import { passwordValidator } from './passwordValidator'
+import Button from './Button'
+import { theme } from './Theme'
 
 
 const ScaningView = ({navigation}) => {
 
-    const [text, setText] = useState('ZeroCheting cam 1.0 HD Wide')
     
     
     return (
-        <NewBack>
-            <BackButton goBack={navigation.goBack} />
+        <Container>
+             <BackButton goBack={navigation.goBack} />
             <Logo />
             <View>
-                <Text>I am going to right this </Text>
-                <Text>But I don't know how to</Text>
+                <View style={[styles.logoContainer]}>
+                    <Image source={require('./assets/container.png')} style={styles.imageCont} />
+                </View>
+                <View style={[styles.textView]}>
+                    <Text style={[styles.text]}>
+                    Ensure that your face is positioned
+                    at the center of the shutter lines.
+                    </Text>
+                    <Button mode="contained" style={[
+                    styles.button,
+                    ]}>
+                        Start Verification
+                    </Button>
+                    <Text style={[styles.textVerifying]}>
+                    Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
+                    </Text>
+                </View>
             </View>
-            <TextInputView
-                label="Installed Camera"
-                returnKeyType="done"
-                value={text}
-                onChangeText={(e) => setText({ value: text })}
-                // error={!!email.error}
-                // errorText={email.error}
-                autoCapitalize="none"
-            />
-        </NewBack>
+        </Container>
     )
 }
 
 
 
 const styles = StyleSheet.create({
-    forgotPassword: {
+    imageCont: {
         width: '100%',
-        alignItems: 'flex-end',
-        marginBottom: 24,
+        marginHorizontal:'auto',
+        height: 350,
+        marginBottom: 8,
+        resizeMode: 'stretch'
+      },
+      logoContainer:{
+        marginHorizontal:'auto',
+        width:'100%',
+        alignItems:'center',
+      },
+      textView:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop:20,
+        
     },
-    row: {
-        flexDirection: 'row',
-        marginTop: 4,
+    textVerifying:{
+        // textAlign: 'center',
+        color:'#202020',
+        fontWeight:500,
+        fontSize: 16,
+        marginVertical:10,
     },
-    forgot: {
-        fontSize: 13,
-        color: theme.colors.secondary,
+    text:{
+        textAlign: 'center',
+        color:'#202020',
+        fontWeight:500,
+        fontSize: 18,
+        marginVertical:10,
+
     },
-    link: {
-        fontWeight: 'bold',
-        color: theme.colors.primary,
+    button: {
+        width: '60%',
+        marginVertical: 10,
+        borderRadius: 10,
+        fontSize: 15,
     },
+    touchText:{
+        color:theme.colors.primary,
+        
+    }
 })
 
 
