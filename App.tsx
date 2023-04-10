@@ -7,6 +7,8 @@ import Dashboard from './src/Dashboard';
 import NewSignUp from './src/NewSignUp';
 import Registration from './src/Registration';
 import ScaningView from './src/Scaning';
+import ThumbView from './src/ThumbView';
+import VerifyingView from './src/VerifyingView';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,8 @@ function App() {
         <Stack.Screen name="Dashboard" component={Dashboard}/>
         <Stack.Screen name="Registration" component={Registration}/>
         <Stack.Screen name="Scaning" component={ScaningView}/>
+        <Stack.Screen name="Thumb" component={ThumbView}/>
+        <Stack.Screen name="Verifying" component={VerifyingView}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

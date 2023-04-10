@@ -1,15 +1,15 @@
-import { View, Image,Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, Text } from 'react-native'
 import React from 'react'
+import { create } from 'react-test-renderer'
 import Container from './Container'
 import BackButton from './BackButton'
 import Logo from './Logo'
 import Button from './Button'
 import { theme } from './Theme'
 
-const ScaningView = ({navigation}) => {
-    
-    return (
-        <Container>
+export default function VerifyingView( {navigation} ) {
+  return (
+    <Container>
              <BackButton goBack={navigation.goBack} />
             <Logo />
             <View>
@@ -24,7 +24,7 @@ const ScaningView = ({navigation}) => {
                     <Button mode="contained" style={[
                     styles.button,
                     ]}>
-                        Start Scaning
+                        Start Verification
                     </Button>
                     <Text style={[styles.textVerifying]}>
                     Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
@@ -32,9 +32,8 @@ const ScaningView = ({navigation}) => {
                 </View>
             </View>
         </Container>
-    )
+  )
 }
-
 const styles = StyleSheet.create({
     images: {
         width: '100%',
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         resizeMode: 'stretch'
       },
-      imageView:{
+      logoView:{
         marginHorizontal:'auto',
         width:'100%',
         alignItems:'center',
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
         
     },
     textVerifying:{
-        // textAlign: 'center',
         color:'#202020',
         fontWeight:500,
         fontSize: 16,
@@ -80,6 +78,3 @@ const styles = StyleSheet.create({
         
     }
 })
-
-export default ScaningView
-

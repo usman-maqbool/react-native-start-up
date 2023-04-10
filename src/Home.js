@@ -63,6 +63,18 @@ export default function Home({ navigation }) {
       >
         Scaning
       </Button>
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate('Thumb')}
+      >
+        Authentication
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('Verifying')}
+      >
+        Verifying
+      </Button>
     </NewBack>
   )
 }
