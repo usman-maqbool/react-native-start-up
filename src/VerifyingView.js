@@ -23,7 +23,8 @@ export default function VerifyingView( {navigation} ) {
                     </Text>
                     <Button mode="contained" style={[
                     styles.button,
-                    ]}>
+                    ]}
+                    onPress={() => navigation.navigate('DashboardView')}>
                         Start Verification
                     </Button>
                     <Text style={[styles.textVerifying]}>

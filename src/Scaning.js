@@ -23,7 +23,9 @@ const ScaningView = ({navigation}) => {
                     </Text>
                     <Button mode="contained" style={[
                     styles.button,
-                    ]}>
+                    
+                    ]}
+                    onPress={() => navigation.navigate('Thumb')}>
                         Start Scaning
                     </Button>
                     <Text style={[styles.textVerifying]}>
