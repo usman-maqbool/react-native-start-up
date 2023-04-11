@@ -13,7 +13,7 @@ export default function Home({ navigation }) {
       <Paragraph>
        Welcome to Zero Cheating. Please Login to access your account, or if you don’t have any account then Sign Up.
       </Paragraph>
-      <Button
+      {/* <Button
         mode="contained"
         onPress={() => navigation.navigate('NewLogin')}
       >
@@ -24,14 +24,14 @@ export default function Home({ navigation }) {
         onPress={() => navigation.navigate('NewSignup')}
       >
         Sign Up
-      </Button>
+      </Button> */}
       <Button
         mode="contained"
         onPress={() => navigation.navigate('Registration')}
       >
         Registration
       </Button>
-      <Button
+      {/* <Button
         mode="outlined"
         onPress={() => navigation.navigate('Scaning')}
       >
@@ -54,7 +54,7 @@ export default function Home({ navigation }) {
         onPress={() => navigation.navigate('DashboardView')}
       >
         Dashboard
-      </Button>
+      </Button> */}
     </NewBack>
   )
 }

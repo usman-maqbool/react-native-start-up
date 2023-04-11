@@ -7,10 +7,14 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Container({ children }) {
   return (
-    
+    <ImageBackground
+      source={require('./assets/background_dot.png')}
+      resizeMode="repeat"
+      style={styles.background}>
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         {children}
       </KeyboardAvoidingView>
+    </ImageBackground>
     
   )
 }

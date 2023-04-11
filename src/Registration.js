@@ -3,11 +3,14 @@ import React, { useState } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
 import NewBack from './NewBack'
-import BackButton from './BackButton'
+
+// import BackButton from './BackButton'
 import Logo from './Logo'
 import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
+import Container from './Container'
+
 
 export default function Registration({ navigation }) {
 
@@ -28,8 +31,8 @@ export default function Registration({ navigation }) {
     }
 
     return (
-        <NewBack>
-            <BackButton goBack={navigation.goBack} />
+        <Container>
+            {/* <BackButton goBack={navigation.goBack} /> */}
             <Logo />
             <View style={{ marginTop: 40 }}>
                 <Text style={[styles.header]}>
@@ -46,6 +49,7 @@ export default function Registration({ navigation }) {
                 autoCapitalize="none"
                 autoCompleteType="numeric"
                 keyboardType="numeric"
+                icon='check-circle'
             />
             <TextInputView
                 label="Password"
@@ -55,7 +59,9 @@ export default function Registration({ navigation }) {
                 error={!!password.error}
                 errorText={password.error}
                 secureTextEntry
+                icon='eye'
             />
+            
             <View style={styles.row}>
                 <TouchableOpacity>
                     <Text style={styles.forgot}>Can’t sign in?</Text>
@@ -91,7 +97,7 @@ export default function Registration({ navigation }) {
                 connected to the web app
                 </Text>
             </View>
-        </NewBack>
+        </Container>
 
     )
 }

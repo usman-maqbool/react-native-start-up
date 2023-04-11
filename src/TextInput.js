@@ -1,13 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
 import { theme } from './Theme'
 
-export default function TextInputView({ errorText, description, ...props }) {
+export default function TextInputView({ errorText, icon, description, ...props }) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+  const handlePress = () => {
+    setIsFocused(true);
+  };
+  
   return (
+    
     <View style={styles.container}>
       <Input
         style={styles.input}
+        // right={<Input.Icon color='black' size={28} icon={icon} />}
+        right={
+          <Input.Icon
+            icon={icon}
+            color={(isTextInputFocused) => (isTextInputFocused ? theme.colors.active : undefined)}
+            onPress={handlePress}
+            isFocused={false}
+          />}
         theme={{
           colors:{
             primary: theme.colors.active,

@@ -1,13 +1,13 @@
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native'
 import React from 'react'
 import Container from './Container'
-import BackButton from './BackButton'
+// import BackButton from './BackButton'
 import Logo from './Logo'
 
 const ThumbView = ({navigation  }) => {
   return (
     <Container>
-        <BackButton goBack={navigation.goBack} />
+        {/* <BackButton goBack={navigation.goBack} /> */}
               <TouchableOpacity  onPress={() => navigation.navigate('Verifying')}>
         <Logo />
               </TouchableOpacity>
