@@ -2,15 +2,12 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
-import NewBack from './NewBack'
-
 // import BackButton from './BackButton'
 import Logo from './Logo'
 import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
 import Container from './Container'
-
 
 export default function Registration({ navigation }) {
 
@@ -32,76 +29,76 @@ export default function Registration({ navigation }) {
 
     return (
         <Container>
-            {/* <BackButton goBack={navigation.goBack} /> */}
-            <Logo />
-            <View style={{ marginTop: 40 }}>
-                <Text style={[styles.header]}>
-                    Sign in
-                </Text>
-            </View>
-            <TextInputView
-                label="Student ID"
-                returnKeyType="next"
-                value={email.value}
-                onChangeText={(text) => setEmail({ value: text, error: '' })}
-                error={!!email.error}
-                errorText={email.error}
-                autoCapitalize="none"
-                autoCompleteType="numeric"
-                keyboardType="numeric"
-                icon='check-circle'
-            />
-            <TextInputView
-                label="Password"
-                returnKeyType="done"
-                value={password.value}
-                onChangeText={(text) => setPassword({ value: text, error: '' })}
-                error={!!password.error}
-                errorText={password.error}
-                secureTextEntry
-                icon='eye'
-            />
-            
-            <View style={styles.row}>
-                <TouchableOpacity>
-                    <Text style={styles.forgot}>Can’t sign in?</Text>
-                </TouchableOpacity>
-                <Button mode="contained" style={[
-                    styles.button,
-                ]} onPress={onLoginPressed}>
-                    Sign In
-                </Button>
-            </View>
-            <View>
-                <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
-                    <Text style={[styles.touchLink]}> Zero Cheating Privacy Policy</Text>
-                    &nbsp; and &nbsp;
-                    <Text style={[styles.touchLink]}> Terms of Service</Text>
-                </Text>
-            </View>
-            <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
-            <View style={[styles.rowFlex]}>
-                <View>
-                    <Image source={require('./assets/link.png')} style={styles.image} />
+            <View style={{paddingHorizontal:10, marginVertical:10}}>
+                {/* <BackButton goBack={navigation.goBack} /> */}
+                <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
+                    <Logo />
+                </TouchableOpacity>      
+                <View style={{ marginTop: 40 }}>
+                    <Text style={[styles.header]}>
+                        Sign in
+                    </Text>
+                </View>
+                <TextInputView
+                    label="Student ID"
+                    returnKeyType="next"
+                    value={email.value}
+                    onChangeText={(text) => setEmail({ value: text, error: '' })}
+                    error={!!email.error}
+                    errorText={email.error}
+                    autoCapitalize="none"
+                    autoCompleteType="numeric"
+                    keyboardType="numeric"
+                    icon='check-circle'
+                />
+                <TextInputView
+                    label="Password"
+                    returnKeyType="done"
+                    value={password.value}
+                    onChangeText={(text) => setPassword({ value: text, error: '' })}
+                    error={!!password.error}
+                    errorText={password.error}
+                    secureTextEntry
+                    icon='eye'
+                />                
+                <View style={styles.row}>
+                    <TouchableOpacity>
+                        <Text style={styles.forgot}>Can’t sign in?</Text>
+                    </TouchableOpacity>
+                    <Button mode="contained" style={[
+                        styles.button,
+                    ]} onPress={onLoginPressed}>
+                        Sign In
+                    </Button>
                 </View>
                 <View>
-                    <Text style={[styles.connect]}>Connected to Web app </Text>
-                    <Text style={[styles.user]}> Andrew's MacBook Air </Text>
+                    <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
+                        <Text style={[styles.touchLink]}> Zero Cheating Privacy Policy</Text>
+                        &nbsp; and &nbsp;
+                        <Text style={[styles.touchLink]}> Terms of Service</Text>
+                    </Text>
                 </View>
-            </View>
-
-            <View>
-            <Text style={[styles.text]}>
-                Make sure your mobile device is connected to 
-                the web app, Your verification will only proceed if 
-                connected to the web app
-                </Text>
+                <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
+                <View style={[styles.rowFlex]}>
+                    <View>
+                        <Image source={require('./assets/link.png')} style={styles.image} />
+                    </View>
+                    <View>
+                        <Text style={[styles.connect]}>Connected to Web app </Text>
+                        <Text style={[styles.user]}> Andrew's MacBook Air </Text>
+                    </View>
+                </View>
+                <View>
+                    <Text style={[styles.text]}>
+                        Make sure your mobile device is connected to 
+                        the web app, Your verification will only proceed if 
+                        connected to the web app
+                    </Text>
+                </View>
             </View>
         </Container>
-
     )
 }
-
 
 const styles = StyleSheet.create({
     connect: {
@@ -168,6 +165,5 @@ const styles = StyleSheet.create({
         color: '#202020',
         fontWeight: 600,
     }
-
 })
 

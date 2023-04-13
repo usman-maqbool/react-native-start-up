@@ -11,7 +11,6 @@ export default function Logo() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 150,
     marginHorizontal:'auto',
     height: 100,
     marginBottom: 8,
