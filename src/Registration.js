@@ -8,6 +8,7 @@ import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
 import Container from './Container'
+import PasswordInput from './PasswordInput'
 
 export default function Registration({ navigation }) {
 
@@ -51,16 +52,13 @@ export default function Registration({ navigation }) {
                     keyboardType="numeric"
                     icon='check-circle'
                 />
-                <TextInputView
-                    label="Password"
+                <PasswordInput
                     returnKeyType="done"
                     value={password.value}
                     onChangeText={(text) => setPassword({ value: text, error: '' })}
                     error={!!password.error}
                     errorText={password.error}
-                    secureTextEntry
-                    icon='eye'
-                />                
+                />
                 <View style={styles.row}>
                     <TouchableOpacity>
                         <Text style={styles.forgot}>Can’t sign in?</Text>
@@ -79,15 +77,15 @@ export default function Registration({ navigation }) {
                     </Text>
                 </View>
                 <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
-                <View style={[styles.rowFlex]}>
-                    <View>
-                        <Image source={require('./assets/link.png')} style={styles.image} />
+                    <View style={[styles.rowFlex]}>
+                        <View>
+                            <Image source={require('./assets/link.png')} style={styles.image} />
+                        </View>
+                        <View>
+                            <Text style={[styles.connect]}>Connected to Web app </Text>
+                            <Text style={[styles.user]}> Andrew's MacBook Air </Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={[styles.connect]}>Connected to Web app </Text>
-                        <Text style={[styles.user]}> Andrew's MacBook Air </Text>
-                    </View>
-                </View>
                 <View>
                     <Text style={[styles.text]}>
                         Make sure your mobile device is connected to 

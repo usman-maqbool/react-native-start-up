@@ -4,13 +4,9 @@ import { TextInput as Input } from 'react-native-paper'
 import { theme } from './Theme'
 
 export default function TextInputView({ errorText, icon, description, ...props }) {
-  const [isFocused, setIsFocused] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
+  const [isFocused, setIsFocused] = useState(false); 
   const handlePress = () => {
-    setIsFocused(true);
+    setIsFocused(!isFocused);
   };
   
   return (
