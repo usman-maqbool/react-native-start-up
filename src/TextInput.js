@@ -13,7 +13,6 @@ export default function TextInputView({ errorText, icon, description, ...props }
     <View style={styles.container}>
       <Input
         style={styles.input}
-        // right={<Input.Icon color='black' size={28} icon={icon} />}
         right={
           <Input.Icon
             icon={icon}

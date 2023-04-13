@@ -2,15 +2,13 @@ import { View, Image, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import { create } from 'react-test-renderer'
 import Container from './Container'
-// import BackButton from './BackButton'
 import Logo from './Logo'
 import Button from './Button'
 import { theme } from './Theme'
 
-export default function VerifyingView( {navigation} ) {
-  return (
-    <Container>
-             {/* <BackButton goBack={navigation.goBack} /> */}
+export default function VerifyingView({ navigation }) {
+    return (
+        <Container>
             <Logo />
             <View>
                 <View style={[styles.imageView]}>
@@ -18,54 +16,54 @@ export default function VerifyingView( {navigation} ) {
                 </View>
                 <View style={[styles.textView]}>
                     <Text style={[styles.text]}>
-                    Ensure that your face is positioned
-                    at the center of the shutter lines.
+                        Ensure that your face is positioned
+                        at the center of the shutter lines.
                     </Text>
                     <Button mode="contained" style={[
-                    styles.button,
+                        styles.button,
                     ]}
-                    onPress={() => navigation.navigate('DashboardView')}>
+                        onPress={() => navigation.navigate('DashboardView')}>
                         Start Verification
                     </Button>
                     <Text style={[styles.textVerifying]}>
-                    Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
+                        Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
                     </Text>
                 </View>
             </View>
         </Container>
-  )
+    )
 }
 const styles = StyleSheet.create({
     images: {
         width: '100%',
-        marginHorizontal:'auto',
+        marginHorizontal: 'auto',
         height: 350,
         marginBottom: 8,
         resizeMode: 'stretch'
-      },
-      logoView:{
-        marginHorizontal:'auto',
-        width:'100%',
-        alignItems:'center',
-      },
-      textView:{
+    },
+    logoView: {
+        marginHorizontal: 'auto',
+        width: '100%',
+        alignItems: 'center',
+    },
+    textView: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:20,
-        
+        marginTop: 20,
+
     },
-    textVerifying:{
-        color:'#202020',
-        fontWeight:500,
+    textVerifying: {
+        color: '#202020',
+        fontWeight: 500,
         fontSize: 16,
-        marginVertical:10,
+        marginVertical: 10,
     },
-    text:{
+    text: {
         textAlign: 'center',
-        color:'#202020',
-        fontWeight:500,
+        color: '#202020',
+        fontWeight: 500,
         fontSize: 18,
-        marginVertical:10,
+        marginVertical: 10,
 
     },
     button: {
@@ -74,8 +72,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         fontSize: 15,
     },
-    touchText:{
-        color:theme.colors.primary,
-        
+    touchText: {
+        color: theme.colors.primary,
+
     }
 })

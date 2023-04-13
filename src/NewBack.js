@@ -4,7 +4,6 @@ import { theme } from './Theme'
 
 const windowHeight = Dimensions.get('window').height;
 
-
 export default function Background({ children }) {
   return (
     <ImageBackground

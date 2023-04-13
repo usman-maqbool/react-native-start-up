@@ -1,7 +1,6 @@
 import { View, Image,Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Container from './Container'
-// import BackButton from './BackButton'
 import Logo from './Logo'
 import Button from './Button'
 import { theme } from './Theme'
@@ -10,7 +9,6 @@ const ScaningView = ({navigation}) => {
     
     return (
         <Container>
-             {/* <BackButton goBack={navigation.goBack} /> */}
             <Logo />
             <View>
                 <View style={[styles.imageView]}>

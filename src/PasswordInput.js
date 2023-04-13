@@ -6,13 +6,13 @@ import { theme } from './Theme'
 
 export default function PasswordInput({errorText,  description, ...props}) {
 
-const [isPasswordVisible, setIsPasswordVisible] = useState(true)
-const [isFocused, setIsFocused] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(true)
+    const [isFocused, setIsFocused] = useState(false);
 
-const IconPress=() => {
-    setIsPasswordVisible(!isPasswordVisible)
-    setIsFocused(!isFocused)
-}
+    const IconPress=() => {
+        setIsPasswordVisible(!isPasswordVisible)
+        setIsFocused(!isFocused)
+    }
 
     return (
         <View>
@@ -34,7 +34,6 @@ const IconPress=() => {
                 }}
                 {...props}    
             />
-            
             {description && !errorText ? (
                 <Text style={styles.description}>{description}</Text>
             ) : null}

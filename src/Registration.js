@@ -2,7 +2,6 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
-// import BackButton from './BackButton'
 import Logo from './Logo'
 import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
@@ -31,7 +30,6 @@ export default function Registration({ navigation }) {
     return (
         <Container>
             <View style={{paddingHorizontal:10, marginVertical:10}}>
-                {/* <BackButton goBack={navigation.goBack} /> */}
                 <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
                     <Logo />
                 </TouchableOpacity>      

@@ -2,11 +2,11 @@ import React from 'react'
 import { Image, View, StyleSheet } from 'react-native'
 
 export default function Logo() {
-  return(
-    <View style={[styles.logo]}>
-      <Image source={require('./assets/zero_logo.png')} style={styles.image} />
-    </View>
-  )
+    return(
+      <View style={[styles.logo]}>
+        <Image source={require('./assets/zero_logo.png')} style={styles.image} />
+      </View>
+    )
   }
 
 const styles = StyleSheet.create({

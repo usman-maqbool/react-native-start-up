@@ -1,17 +1,16 @@
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import React from 'react'
 import Container from './Container'
-// import BackButton from './BackButton'
 import Logo from './Logo'
 import IconSpin from 'react-native-vector-icons/EvilIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from './Theme'
-const DashboardView = ({navigation}) => {
-  return (
-    <Container>
 
-        {/* <BackButton goBack={navigation.goBack} /> */}
-        <Logo />
+const DashboardView = ({navigation}) => {
+
+    return (
+        <Container>
+            <Logo />
             <View>
                 <View style={[styles.text]}>
                     <Text style={[styles.text]}>
@@ -37,14 +36,14 @@ const DashboardView = ({navigation}) => {
                 </View>
                 <View style={[styles.iconButton]}>
                     <TouchableOpacity style={[styles.touchText]}
-                     onPress={() => navigation.navigate('Registration')}>
+                        onPress={() => navigation.navigate('Registration')}>
                         <IconSpin name="spinner" size={40} color="white" fontWeight="bold" />
                         <Text style={[styles.buttonText]}>Waiting</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-    </Container>
-  )
+        </Container>
+    )
 }
 
 
