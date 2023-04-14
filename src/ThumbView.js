@@ -26,17 +26,15 @@ const ThumbView = ({navigation  }) => {
 
 const styles = StyleSheet.create({
     images: {
-        width: '50%',
-        marginHorizontal:'auto',
-        marginVertical:'auto',
-        marginBottom: 8,
-        height:150,
+        width:120,
+        marginBottom: 80,
+        height:120,
         resizeMode: 'stretch'
       },
       imageView:{
         marginHorizontal:'auto',
         width:'100%',
-        marginTop:180,
+        marginTop:120,
         alignItems:'center',
       },
       

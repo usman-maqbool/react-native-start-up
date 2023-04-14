@@ -12,7 +12,7 @@ const DashboardView = ({navigation}) => {
         <Container>
             <Logo />
             <View>
-                <View style={[styles.text]}>
+                <View style={[styles.textView]}>
                     <Text style={[styles.text]}>
                         Your exam will start in
                     </Text>
@@ -20,6 +20,7 @@ const DashboardView = ({navigation}) => {
                         00:14:00
                     </Text>
                 </View>
+                <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
                 <View style={[styles.listView]}>
                     <View style={[styles.listRow]}>
                         <Icon name="check-circle" size={28} color={theme.colors.primary} />
@@ -65,21 +66,9 @@ const styles = StyleSheet.create({
         color:'#202020',
         fontWeight:500, 
     },
-    list: {
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    item: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-    },
-    itemText: {
-        fontSize: 16,
-        marginLeft: 5,
-    },
     listView:{
-        marginLeft:'13%',
+        justifyContent:'center',
+        alignSelf:'center',
         marginTop:30
     },
     listRow:{
@@ -94,13 +83,13 @@ const styles = StyleSheet.create({
     },
     iconButton:{
         alignItems:'center',
-        marginTop:120,
+        marginTop:90,
     },
     touchText:{
         backgroundColor:theme.colors.secondary,
         flexDirection:'row',
         justifyContent:'center',
-        width:'70%',
+        width:'50%',
         paddingVertical:15,
         borderRadius:20
     },

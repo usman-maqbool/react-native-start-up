@@ -1,12 +1,12 @@
-import { View, Image,Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import Button from './Button'
 import { theme } from './Theme'
 
-const ScaningView = ({navigation}) => {
-    
+const ScaningView = ({ navigation }) => {
+
     return (
         <Container>
             <Logo />
@@ -16,18 +16,18 @@ const ScaningView = ({navigation}) => {
                 </View>
                 <View style={[styles.textView]}>
                     <Text style={[styles.text]}>
-                    Ensure that your face is positioned
-                    at the center of the shutter lines.
+                        Ensure that your face is positioned
+                        at the center of the shutter lines.
                     </Text>
                     <Button mode="contained" style={[
-                    styles.button,
-                    
+                        styles.button,
+
                     ]}
-                    onPress={() => navigation.navigate('Thumb')}>
+                        onPress={() => navigation.navigate('Thumb')}>
                         Start Scaning
                     </Button>
                     <Text style={[styles.textVerifying]}>
-                    Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
+                        Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
                     </Text>
                 </View>
             </View>
@@ -37,36 +37,35 @@ const ScaningView = ({navigation}) => {
 
 const styles = StyleSheet.create({
     images: {
-        width: '100%',
-        marginHorizontal:'auto',
-        height: 350,
+        width: '80%',
+        marginHorizontal: 'auto',
+        height: 300,
         marginBottom: 8,
         resizeMode: 'stretch'
-      },
-      imageView:{
-        marginHorizontal:'auto',
-        width:'100%',
-        alignItems:'center',
-      },
-      textView:{
+    },
+    imageView: {
+        marginHorizontal: 'auto',
+        width: '100%',
+        alignItems: 'center',
+    },
+    textView: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:20,
-        
+        marginTop: 20,
+
     },
-    textVerifying:{
-        // textAlign: 'center',
-        color:'#202020',
-        fontWeight:500,
+    textVerifying: {
+        color: '#202020',
+        fontWeight: 500,
         fontSize: 16,
-        marginVertical:10,
+        marginVertical: 10,
     },
-    text:{
+    text: {
         textAlign: 'center',
-        color:'#202020',
-        fontWeight:500,
+        color: '#202020',
+        fontWeight: 500,
         fontSize: 18,
-        marginVertical:10,
+        marginVertical: 10,
 
     },
     button: {
@@ -75,9 +74,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         fontSize: 15,
     },
-    touchText:{
-        color:theme.colors.primary,
-        
+    touchText: {
+        color: theme.colors.primary,
+
     }
 })
 

@@ -1,24 +1,27 @@
 import React from 'react'
 import { Image, View, StyleSheet } from 'react-native'
 
+import FastImage from 'react-native-fast-image';
+import logoImage from './assets/zero_logo.png';
+
 export default function Logo() {
     return(
       <View style={[styles.logo]}>
-        <Image source={require('./assets/zero_logo.png')} style={styles.image} />
+        <FastImage
+          source={logoImage}
+          style={{ width: 150, height: 150 }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       </View>
     )
   }
 
 const styles = StyleSheet.create({
-  image: {
-    marginHorizontal:'auto',
-    height: 100,
-    marginBottom: 8,
-    resizeMode: 'stretch'
-  },
+  
   logo:{
     marginHorizontal:'auto',
     width:'100%',
     alignItems:'center',
+    marginTop:20
   }
 })

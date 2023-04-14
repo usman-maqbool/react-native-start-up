@@ -16,8 +16,8 @@ export default function VerifyingView({ navigation }) {
                 </View>
                 <View style={[styles.textView]}>
                     <Text style={[styles.text]}>
-                        Ensure that your face is positioned
-                        at the center of the shutter lines.
+                        Ensure your camera is stable as
+                        you scan your student ID.
                     </Text>
                     <Button mode="contained" style={[
                         styles.button,
@@ -35,13 +35,13 @@ export default function VerifyingView({ navigation }) {
 }
 const styles = StyleSheet.create({
     images: {
-        width: '100%',
+        width: '80%',
         marginHorizontal: 'auto',
-        height: 350,
+        height: 300,
         marginBottom: 8,
         resizeMode: 'stretch'
     },
-    logoView: {
+    imageView: {
         marginHorizontal: 'auto',
         width: '100%',
         alignItems: 'center',
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
 
     },
     textVerifying: {
+        // textAlign: 'center',
         color: '#202020',
         fontWeight: 500,
         fontSize: 16,

@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   scroll:{
     backgroundColor:'white',
     paddingHorizontal: 20,
-    paddingTop:20,
     alignSelf: 'center',
     width:'100%',
   },

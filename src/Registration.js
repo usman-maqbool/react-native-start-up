@@ -33,7 +33,7 @@ export default function Registration({ navigation }) {
                 <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
                     <Logo />
                 </TouchableOpacity>      
-                <View style={{ marginTop: 40 }}>
+                <View style={{ marginTop: 30 }}>
                     <Text style={[styles.header]}>
                         Sign in
                     </Text>
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         borderRadius: 10,
         fontSize: 15,
+        backgroundColor:theme.colors.scndPrimary
     },
     touchLink: {
         color: theme.colors.primary,
@@ -154,7 +155,8 @@ const styles = StyleSheet.create({
     text: {
         flexDirection: 'row',
         fontSize: 14,
-        marginTop: 10
+        marginTop: 10,
+        color:theme.colors.textColor
     },
     header: {
         fontSize: 36,
