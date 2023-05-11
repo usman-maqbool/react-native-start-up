@@ -10,7 +10,7 @@ export default function TextInputView({ errorText, icon, description, ...props }
   };
   
   return (
-    <View style={styles.container}>
+    <View >
       <Input
         style={styles.input}
         right={
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'white',
+    width:'100%'
   },
   description: {
     fontSize: 13,

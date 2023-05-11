@@ -1,4 +1,4 @@
-import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, Text, StyleSheet,  Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
@@ -10,9 +10,23 @@ import Container from './Container'
 import PasswordInput from './PasswordInput'
 
 export default function Registration({ navigation }) {
-
     const [email, setEmail] = useState({ value: '345634', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
+    
+    const handlePress  = () =>{
+        const emailError = emailValidator(email.value)
+        const passwordError = passwordValidator(password.value)
+        if (emailError || passwordError) {
+            setEmail({ ...email, error: emailError })
+            setPassword({ ...password, error: passwordError })
+            
+            return
+        }
+        navigation.navigate('Scaning')
+    }
+    const handleSubmit = () => {
+        handlePress(); // Call the handlePress function when the user submits the input
+      };
     const onLoginPressed = () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
@@ -21,78 +35,81 @@ export default function Registration({ navigation }) {
             setPassword({ ...password, error: passwordError })
             return
         }
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'Scaning' }],
-        })
+        Keyboard.dismiss();
+        handleSubmit();
+        navigation.navigate('Scaning')
     }
 
     return (
-        <Container>
-            <View style={{paddingHorizontal:10, marginVertical:10}}>
-                <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
-                    <Logo />
-                </TouchableOpacity>      
-                <View style={{ marginTop: 30 }}>
-                    <Text style={[styles.header]}>
-                        Sign in
-                    </Text>
-                </View>
-                <TextInputView
-                    label="Student ID"
-                    returnKeyType="next"
-                    value={email.value}
-                    onChangeText={(text) => setEmail({ value: text, error: '' })}
-                    error={!!email.error}
-                    errorText={email.error}
-                    autoCapitalize="none"
-                    autoCompleteType="numeric"
-                    keyboardType="numeric"
-                    icon='check-circle'
-                />
-                <PasswordInput
-                    returnKeyType="done"
-                    value={password.value}
-                    onChangeText={(text) => setPassword({ value: text, error: '' })}
-                    error={!!password.error}
-                    errorText={password.error}
-                />
-                <View style={styles.row}>
-                    <TouchableOpacity>
-                        <Text style={styles.forgot}>Can’t sign in?</Text>
-                    </TouchableOpacity>
-                    <Button mode="contained" style={[
-                        styles.button,
-                    ]} onPress={onLoginPressed}>
-                        Sign In
-                    </Button>
-                </View>
-                <View>
-                    <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
-                        <Text style={[styles.touchLink]}> Zero Cheating Privacy Policy</Text>
-                        &nbsp; and &nbsp;
-                        <Text style={[styles.touchLink]}> Terms of Service</Text>
-                    </Text>
-                </View>
-                <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
-                    <View style={[styles.rowFlex]}>
-                        <View>
-                            <Image source={require('./assets/link.png')} style={styles.image} />
-                        </View>
-                        <View>
-                            <Text style={[styles.connect]}>Connected to Web app </Text>
-                            <Text style={[styles.user]}> Andrew's MacBook Air </Text>
-                        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={[styles.containerView]}>
+                <View style={{paddingHorizontal:10, marginVertical:10}}>
+                    <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
+                        <Logo />
+                    </TouchableOpacity>      
+                    <View style={{ marginTop: 30 }}>
+                        <Text style={[styles.header]}>
+                            Sign in
+                        </Text>
                     </View>
-                <View>
-                    <Text style={[styles.text]}>
-                        Make sure your mobile device is connected to 
-                        the web app, Your verification will only proceed if 
-                        connected to the web app
-                    </Text>
+                    <TextInputView
+                        autoFocus={true}
+                        label="Student ID"
+                        returnKeyType="next"
+                        value={email.value}
+                        onChangeText={(text) => setEmail({ value: text, error: '' })}
+                        error={!!email.error}
+                        errorText={email.error}
+                        autoCapitalize="none"
+                        autoCompleteType="numeric"
+                        keyboardType="numeric"
+                        icon='check-circle'
+                    />
+                    <PasswordInput
+                        returnKeyType="done"
+                        value={password.value}
+                        onChangeText={(text) => setPassword({ value: text, error: '' })}
+                        error={!!password.error}
+                        errorText={password.error}
+                        onSubmitEditing={handleSubmit}
+                    />
+                    <View style={styles.row}>
+                        <TouchableOpacity>
+                            <Text style={styles.forgot}>Can’t sign in?</Text>
+                        </TouchableOpacity>
+                        <Button mode="contained" style={[
+                            styles.button,
+                        ]} onPress={onLoginPressed}>
+                            Sign In
+                        </Button>
+                    </View>
+                    <View>
+                        <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
+                            <Text style={[styles.touchLink]}> Zero Cheating Privacy Policy</Text>
+                            &nbsp; and &nbsp;
+                            <Text style={[styles.touchLink]}> Terms of Service</Text>
+                        </Text>
+                    </View>
+                    <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
+                        <View style={[styles.rowFlex]}>
+                            <View>
+                                <Image source={require('./assets/link.png')} style={styles.image} />
+                            </View>
+                            <View>
+                                <Text style={[styles.connect]}>Connected to Web app </Text>
+                                <Text style={[styles.user]}> Andrew's MacBook Air </Text>
+                            </View>
+                        </View>
+                    <View>
+                        <Text style={[styles.text]}>
+                            Make sure your mobile device is connected to 
+                            the web app, Your verification will only proceed if 
+                            connected to the web app
+                        </Text>
+                    </View>
                 </View>
             </View>
-        </Container>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -162,6 +179,14 @@ const styles = StyleSheet.create({
         fontSize: 36,
         color: '#202020',
         fontWeight: 600,
+    },
+    containerView:{
+        // justifyContent: 'center', 
+        alignItems: 'center',
+        alignSelf: 'center',
+        backgroundColor:'white',
+        paddingHorizontal: 20,
+        width:'100%',
     }
 })
 
