@@ -7,6 +7,7 @@ import ScaningView from './src/Scaning';
 import ThumbView from './src/ThumbView';
 import VerifyingView from './src/VerifyingView';
 import DashboardView from './src/DashboardView';
+import Touch from './src/Touch';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ function App() {
         <Stack.Screen name="Thumb" component={ThumbView}/>
         <Stack.Screen name="Verifying" component={VerifyingView}/>
         <Stack.Screen name="DashboardView" component={DashboardView}/>
+        <Stack.Screen name="Touch" component={Touch}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

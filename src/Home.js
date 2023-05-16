@@ -17,6 +17,18 @@ export default function Home({ navigation }) {
       >
         Registration
       </Button>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('Scaning')}
+      >
+        Scan QrCode
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('Touch')}
+        >
+        Touch
+        </Button>
     </NewBack>
   )
 }

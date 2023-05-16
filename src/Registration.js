@@ -13,20 +13,6 @@ export default function Registration({ navigation }) {
     const [email, setEmail] = useState({ value: '345634', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
     
-    const handlePress  = () =>{
-        const emailError = emailValidator(email.value)
-        const passwordError = passwordValidator(password.value)
-        if (emailError || passwordError) {
-            setEmail({ ...email, error: emailError })
-            setPassword({ ...password, error: passwordError })
-            
-            return
-        }
-        navigation.navigate('Scaning')
-    }
-    const handleSubmit = () => {
-        handlePress(); // Call the handlePress function when the user submits the input
-      };
     const onLoginPressed = () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
@@ -36,8 +22,7 @@ export default function Registration({ navigation }) {
             return
         }
         Keyboard.dismiss();
-        handleSubmit();
-        navigation.navigate('Scaning')
+        navigation.navigate('Thumb')
     }
 
     return (
@@ -47,7 +32,7 @@ export default function Registration({ navigation }) {
                     <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
                         <Logo />
                     </TouchableOpacity>      
-                    <View style={{ marginTop: 30 }}>
+                    <View style={{ marginTop: 20, marginBottom:30 }}>
                         <Text style={[styles.header]}>
                             Sign in
                         </Text>
@@ -71,7 +56,6 @@ export default function Registration({ navigation }) {
                         onChangeText={(text) => setPassword({ value: text, error: '' })}
                         error={!!password.error}
                         errorText={password.error}
-                        onSubmitEditing={handleSubmit}
                     />
                     <View style={styles.row}>
                         <TouchableOpacity>
