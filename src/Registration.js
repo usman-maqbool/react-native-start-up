@@ -22,7 +22,7 @@ export default function Registration({ navigation }) {
             return
         }
         Keyboard.dismiss();
-        navigation.navigate('Thumb')
+        navigation.navigate('Scaning')
     }
 
     return (

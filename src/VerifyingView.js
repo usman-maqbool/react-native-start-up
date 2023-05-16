@@ -1,80 +1,76 @@
-import { View, Image, StyleSheet, Text } from 'react-native'
-import React from 'react'
-import { create } from 'react-test-renderer'
-import Container from './Container'
-import Logo from './Logo'
-import Button from './Button'
-import { theme } from './Theme'
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { RNCamera, FaceDetector } from 'react-native-camera';
 
-export default function VerifyingView({ navigation }) {
-    return (
-        <Container>
-            <Logo />
-            <View>
-                <View style={[styles.imageView]}>
-                    <Image source={require('./assets/container.png')} style={styles.images} />
-                </View>
-                <View style={[styles.textView]}>
-                    <Text style={[styles.text]}>
-                        Ensure your camera is stable as
-                        you scan your student ID.
-                    </Text>
-                    <Button mode="contained" style={[
-                        styles.button,
-                    ]}
-                        onPress={() => navigation.navigate('DashboardView')}>
-                        Start Verification
-                    </Button>
-                    <Text style={[styles.textVerifying]}>
-                        Trouble verifying?<Text style={[styles.touchText]}>  &nbsp; Reach out to facility</Text>
-                    </Text>
-                </View>
-            </View>
-        </Container>
-    )
-}
-const styles = StyleSheet.create({
-    images: {
-        width: '80%',
-        marginHorizontal: 'auto',
-        height: 300,
-        marginBottom: 8,
-        resizeMode: 'stretch'
-    },
-    imageView: {
-        marginHorizontal: 'auto',
-        width: '100%',
-        alignItems: 'center',
-    },
-    textView: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
+const CameraScreen = () => {
+  const cameraRef = useRef(null);
+  const [faceDetected, setFaceDetected] = useState(false);
 
-    },
-    textVerifying: {
-        // textAlign: 'center',
-        color: '#202020',
-        fontWeight: 500,
-        fontSize: 16,
-        marginVertical: 10,
-    },
-    text: {
-        textAlign: 'center',
-        color: '#202020',
-        fontWeight: 500,
-        fontSize: 18,
-        marginVertical: 10,
-
-    },
-    button: {
-        width: '60%',
-        marginVertical: 10,
-        borderRadius: 10,
-        fontSize: 15,
-    },
-    touchText: {
-        color: theme.colors.primary,
-
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      const options = { quality: 0.5, base64: true };
+      const data = await cameraRef.current.takePictureAsync(options);
+      console.log(data.uri);
     }
-})
+  };
+
+  const handleFacesDetected = ({ faces }) => {
+    if (faces.length > 0) {
+      setFaceDetected(true);
+    } else {
+      setFaceDetected(false);
+    }
+  };
+
+  const faceDetectorSettings = {
+    mode: FaceDetector.Constants.Mode.fast,
+    detectLandmarks: FaceDetector.Constants.Landmarks.all,
+    runClassifications: FaceDetector.Constants.Classifications.all,
+  };
+
+  return (
+    <View style={styles.container}>
+      <RNCamera
+        style={styles.preview}
+        type={RNCamera.Constants.Type.front} // Specify the front camera
+        captureAudio={false}
+        ref={cameraRef}
+        onFacesDetected={handleFacesDetected}
+        faceDetectorSettings={faceDetectorSettings}
+      />
+      {faceDetected && (
+        <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
+          <Text style={styles.captureButtonText}>Take Photo</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#000',
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  captureButton: {
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 20,
+    padding: 15,
+    backgroundColor: '#fff',
+    borderRadius: 50,
+  },
+  captureButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+});
+
+export default CameraScreen;

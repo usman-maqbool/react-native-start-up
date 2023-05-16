@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Container from './Container'
 import Logo from './Logo'
@@ -12,7 +12,9 @@ const ScaningView = ({ navigation }) => {
     };
     return (
         <Container>
-            <Logo />
+           <TouchableOpacity  onPress={() => navigation.navigate('Biometric')}>
+                <Logo />
+            </TouchableOpacity>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <RNCamera
                     style={{ width: 300, marginTop: 50, justifyContent: 'center', height: 250 }}
