@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { RNCamera, FaceDetector } from 'react-native-camera';
+import { RNCamera } from 'react-native-camera';
 
 const CameraScreen = () => {
   const cameraRef = useRef(null);
-  const [faceDetected, setFaceDetected] = useState(false);
 
   const takePicture = async () => {
     if (cameraRef.current) {
@@ -14,20 +13,6 @@ const CameraScreen = () => {
     }
   };
 
-  const handleFacesDetected = ({ faces }) => {
-    if (faces.length > 0) {
-      setFaceDetected(true);
-    } else {
-      setFaceDetected(false);
-    }
-  };
-
-  const faceDetectorSettings = {
-    mode: FaceDetector.Constants.Mode.fast,
-    detectLandmarks: FaceDetector.Constants.Landmarks.all,
-    runClassifications: FaceDetector.Constants.Classifications.all,
-  };
-
   return (
     <View style={styles.container}>
       <RNCamera
@@ -35,14 +20,10 @@ const CameraScreen = () => {
         type={RNCamera.Constants.Type.front} // Specify the front camera
         captureAudio={false}
         ref={cameraRef}
-        onFacesDetected={handleFacesDetected}
-        faceDetectorSettings={faceDetectorSettings}
       />
-      {faceDetected && (
-        <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-          <Text style={styles.captureButtonText}>Take Photo</Text>
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
+        <Text style={styles.captureButtonText}>Take Picture</Text>
+      </TouchableOpacity>
     </View>
   );
 };
