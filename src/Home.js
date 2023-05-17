@@ -23,6 +23,12 @@ export default function Home({ navigation }) {
       >
         Scan
       </Button>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('FaceVerification')}
+      >
+        Face
+      </Button>
     </NewBack>
   )
 }

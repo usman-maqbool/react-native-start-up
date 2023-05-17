@@ -8,6 +8,7 @@ import ThumbView from './src/ThumbView';
 import CameraScreen from './src/VerifyingView';
 import DashboardView from './src/DashboardView';
 import BiometricVerification from './src/BiometricVerification';
+import FaceVerification from './src/FaceVerification';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ function App() {
         <Stack.Screen name="Scaning" component={ScaningView}/>
         <Stack.Screen name="Thumb" component={ThumbView}/>
         <Stack.Screen name="Verifying" component={CameraScreen}/>
+        <Stack.Screen name="FaceVerification" component={FaceVerification}/>
         <Stack.Screen name="DashboardView" component={DashboardView}/>
         <Stack.Screen name="Biometric" component={BiometricVerification}/>
       </Stack.Navigator>
