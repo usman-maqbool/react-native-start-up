@@ -17,18 +17,6 @@ export default function Home({ navigation }) {
       >
         Registration
       </Button>
-      <Button
-        mode="contained"
-        onPress={() => navigation.navigate('Verifying')}
-      >
-        Scan
-      </Button>
-      <Button
-        mode="outlined"
-        onPress={() => navigation.navigate('FaceVerification')}
-      >
-        Face
-      </Button>
     </NewBack>
   )
 }

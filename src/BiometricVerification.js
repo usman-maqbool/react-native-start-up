@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image, Alert, TouchableOpacity } from 'react-na
 import Container from './Container'
 import Logo from './Logo'
 import Button from './Button'
+import FingerIcon from './SVGCode';
 
 const BiometricVerification = ({ navigation }) => {
 
@@ -26,7 +27,7 @@ const BiometricVerification = ({ navigation }) => {
           .then((success) => {
             console.log("Authentication success");
             // Additional logic or actions after successful authentication
-            navigation.navigate('Verifying')
+            navigation.navigate('FaceVerification')
           })
           .catch((error) => {
             // Alert.alert("Authentication Failed", error.message);
@@ -39,10 +40,11 @@ const BiometricVerification = ({ navigation }) => {
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => navigation.navigate('Verifying')}>
+      <TouchableOpacity onPress={() => navigation.navigate('FaceVerification')}>
         <Logo />
       </TouchableOpacity>
       <View style={[styles.imageView]}>
+        {/* <FingerIcon /> */}
         <Image source={require('./assets/thumb.png')} style={styles.images} />
       </View>
       {/* <View style={[styles.textView]}>

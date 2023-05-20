@@ -7,12 +7,16 @@ import Logo from './Logo'
 import Button from './Button'
 import Spinner from './Spinner';
 import axios from 'axios';
+import { baseUrl } from './Configuration';
 
-const FaceVerification = () => {
+const FaceVerification = ({navigation}) => {
     const cameraRef = useRef(null);
     const [isFaceDetected, setIsFaceDetected] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [successRequest, setSuccessRequest] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [failedRequest, setFailedRequest] = useState(false)
+    
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
           const face = faces[0];
@@ -23,7 +27,7 @@ const FaceVerification = () => {
         }
       };
 
-const sessionURL = `https://d781-123-108-92-229.ngrok-free.app/client/upload_image/`
+
     const takePicture = async () => {
     if (cameraRef.current) {
         const options = { quality: 0.5, base64: true };
@@ -38,14 +42,24 @@ const sessionURL = `https://d781-123-108-92-229.ngrok-free.app/client/upload_ima
           "dataImage":dataImage
           
         };
-        console.log('object')
+        const sessionURL = `${baseUrl}/client/upload_image/`
         axios.post(sessionURL, data, { headers })
           .then((response) => {
-            console.log(response)
-            
+            if (response.status == 200) {
+              console.log(response)
+              setSuccessRequest(true)
+              navigation.navigate('DashboardView')
+              setLoading(false)
+            }
+            else {
+              setFailedRequest(true)
+              setLoading(false)
+            }
           })
           .catch((error) => {
             console.log(error);
+            setLoading(false)
+            setFailedRequest(true)
           });
       }
     }
@@ -53,12 +67,14 @@ const sessionURL = `https://d781-123-108-92-229.ngrok-free.app/client/upload_ima
 
     const closeModal = () => {
       setModalVisible(!modalVisible)
+      setFailedRequest(false)
+      setLoading(true)
     
     }
 
     return (
         <Container>
-          <TouchableOpacity onPress={() => navigation.navigate('Verifying')}>
+          <TouchableOpacity onPress={() => navigation.navigate('DashboardView')}>
               <Logo />
           </TouchableOpacity>
             <Modal
@@ -70,14 +86,23 @@ const sessionURL = `https://d781-123-108-92-229.ngrok-free.app/client/upload_ima
               }}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                  <View style={styles.modalText}>
-                    <Text style={styles.text}>We are working on your request please wait</Text>
-                    <Text style={styles.text}>We are working on your request please wait</Text>
-                  </View>
-                  <Spinner/>
-                  <Button mode="contained"  onPress={closeModal} style={styles.button}>
-                          Back
-                  </Button>
+                  {loading ?
+                    <>
+                    <View style={styles.modalText}>
+                      <Text style={styles.text}>We are working on your request please wait</Text>
+                    </View>
+                    <Spinner/>
+                    </>
+                  : null}
+                  { failedRequest ? 
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={[styles.text, {color:'red'}]}>Verification failed please try again</Text>
+                      <Button mode="contained"  onPress={closeModal} >
+                          Try Again
+                    </Button>
+                  </View> 
+                  :  null }
+
                 </View>
               </View>
             </Modal>
