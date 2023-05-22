@@ -6,29 +6,74 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from './Theme'
 import { Card } from 'react-native-paper';
 import Button from './Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { baseUrl } from './Configuration';
+import axios from 'axios';
 
 const DashboardView = ({ navigation }) => {
     const [countdown, setCountdown] = useState(5); // Initial countdown value in seconds
     const [modalVisible, setModalVisible] = useState(false);
-    let timer;
+    const [authToken, setAuthToken] = useState('')
+    const [sessionData , setSessionData] = useState([]);
 
-    useEffect(() => {
-        timer = setInterval(() => {
-            setCountdown((prevCountdown) => {
-                if (prevCountdown === 1) {
-                    clearInterval(timer); // Stop the timer
-                    setModalVisible(true);
-                }
-                return prevCountdown - 1; // Decrease countdown by 1 every second
+    useEffect(()=>{
+        fetchSessionData()
+    }, [])
+
+
+    const fetchSessionData = async () => {
+        try {
+            AsyncStorage.getItem("user")
+            .then((value) => {
+            if (value) {
+                const data = JSON.parse(value);
+                const token = data.access;
+                setAuthToken(token);
+            } else {
+                console.log("Value not found in local storage");
+            }
+            })
+            .catch((error) => {
+            console.log('Error retrieving data:', error);
             });
-        }, 1000);
 
-        return () => clearInterval(timer); // Clean up the timer when the component unmounts
-    }, []);
+          console.log(authToken, "rename");
+          const fetchSession = `${baseUrl}/superadmin/exam_sessions`;
+          const response = await axios.get(fetchSession, {
+            headers: {
+              'Authorization': `Bearer ${authToken}`,
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          if (response.status === 200) {
+            const session = response.data[0];
+            setSessionData(session);
+            console.log(session);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+
+    // useEffect(() => {
+    //     timer = setInterval(() => {
+    //         setCountdown((prevCountdown) => {
+    //             if (prevCountdown === 1) {
+    //                 clearInterval(timer); // Stop the timer
+    //                 setModalVisible(true);
+    //             }
+    //             return prevCountdown - 1; // Decrease countdown by 1 every second
+    //         });
+    //     }, 1000);
+
+    //     return () => clearInterval(timer); // Clean up the timer when the component unmounts
+    // }, []);
 
     const handleModalClose = () => {
         setModalVisible(false)
-        navigation.navigate('Registration')
+        // navigation.navigate('Registration')
     }
 
     return (
@@ -59,6 +104,10 @@ const DashboardView = ({ navigation }) => {
                 </Modal>
             </View>
             <View>
+            <Text style={{color:'red'}}>
+                        token:{authToken}
+
+                    </Text>
                 <View style={[styles.textView]}>
                     <Text style={[styles.text]}>
                         Your exam will start in

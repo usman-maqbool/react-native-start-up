@@ -1,13 +1,14 @@
 import { View, StyleSheet, Alert, Modal, TouchableOpacity,Pressable, Image, Text } from 'react-native'
 import { RNCamera } from 'react-native-camera';
 import PropType from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import Button from './Button'
 import Spinner from './Spinner';
 import axios from 'axios';
 import { baseUrl } from './Configuration';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FaceVerification = ({navigation}) => {
     const cameraRef = useRef(null);
@@ -16,17 +17,52 @@ const FaceVerification = ({navigation}) => {
     const [successRequest, setSuccessRequest] = useState(false)
     const [loading, setLoading] = useState(true)
     const [failedRequest, setFailedRequest] = useState(false)
-    
+    const [authToken, setAuthToken] = useState('')
+    const [qrCode, setQrCode] = useState('')
+
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
           const face = faces[0];
-            // console.log(faces)
             setIsFaceDetected(true)
         } else {
           setIsFaceDetected(false);
         }
       };
 
+      useEffect(() =>{
+        localData()
+        qrLocalData()
+      }, [])
+      const localData = () => {
+        AsyncStorage.getItem("user")
+        .then((value) => {
+          if (value) {
+            const data = JSON.parse(value);
+            const token = data.access;
+            setAuthToken(token)
+          } else {
+            console.log("Value not found in local storage");
+          }
+        })
+        .catch((error) => {
+          console.log('Error retrieving data:', error);
+        });
+    }
+
+    const qrLocalData = () => {
+      AsyncStorage.getItem("qrCode")
+        .then((value) => {
+          if (value) {
+            const data = JSON.parse(value);
+           setQrCode(data)
+          } else {
+            console.log("Value not found in local storage");
+          }
+        })
+        .catch((error) => {
+          console.log('Error retrieving data:', error);
+        });
+    }
 
     const takePicture = async () => {
     if (cameraRef.current) {
@@ -34,12 +70,14 @@ const FaceVerification = ({navigation}) => {
         const dataImage = await cameraRef.current.takePictureAsync(options);
         console.log(dataImage.uri,'its data');
         setModalVisible(true)
-        
         const headers = {
+          'Authorization': `Bearer ${authToken}`,
           'Content-Type': 'application/json',
         };
+
         const data = {
-          "dataImage":dataImage
+          "dataImage":dataImage,
+          'qrToken':qrCode,
           
         };
         const sessionURL = `${baseUrl}/client/upload_image/`
@@ -63,13 +101,11 @@ const FaceVerification = ({navigation}) => {
           });
       }
     }
-    
 
     const closeModal = () => {
       setModalVisible(!modalVisible)
       setFailedRequest(false)
       setLoading(true)
-    
     }
 
     return (
