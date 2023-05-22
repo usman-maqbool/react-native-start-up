@@ -43,9 +43,12 @@ const BiometricVerification = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate('FaceVerification')}>
         <Logo />
       </TouchableOpacity>
+      <View style={styles.images}>
+        <FingerIcon />
+
+      </View>
       <View style={[styles.imageView]}>
-        {/* <FingerIcon /> */}
-        <Image source={require('./assets/thumb.png')} style={styles.images} />
+        {/* <Image source={require('./assets/thumb.png')} style={styles.images} /> */}
       </View>
       {/* <View style={[styles.textView]}>
         <Text style={[styles.text]}>
@@ -53,7 +56,7 @@ const BiometricVerification = ({ navigation }) => {
           through fingerprint scanning for biometrics
         </Text>
       </View> */}
-      <View style={{ flex: 1, marginTop:20, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {! authenticate ? 
         <Button
           mode="contained"
@@ -78,7 +81,9 @@ const BiometricVerification = ({ navigation }) => {
 const styles = StyleSheet.create({
   images: {
     width: 120,
-    marginBottom: 80,
+    // marginBottom: 80,
+    marginLeft:100,
+    marginTop:220,
     height: 120,
     resizeMode: 'stretch'
   },
@@ -108,6 +113,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 10,
     fontSize: 15,
+  },
+  FingerView:{
+    marginTop:150,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 
