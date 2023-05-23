@@ -142,28 +142,39 @@ const FaceVerification = ({navigation}) => {
                 </View>
               </View>
             </Modal>
+            { modalVisible ? null : 
             <View style={styles.cameraContainer}>
-                <RNCamera
-                    style={styles.cameraPreview}
-                    type={RNCamera.Constants.Type.front} // Specify the front camera
-                    captureAudio={false}
-                    ref={cameraRef}
-                    onFacesDetected={handleFacesDetected}
-                    faceDetectionClassifications={RNCamera.Constants.FaceDetection.Classifications.all}
-                    faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
-                    faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
-                />
-                <View style={styles.faceBlock}></View>
-            </View>
+            <RNCamera
+                style={styles.cameraPreview}
+                type={RNCamera.Constants.Type.front} // Specify the front camera
+                captureAudio={false}
+                ref={cameraRef}
+                onFacesDetected={handleFacesDetected}
+                faceDetectionClassifications={RNCamera.Constants.FaceDetection.Classifications.all}
+                faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
+                faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
+            />
+            <View style={styles.faceBlock}></View>
+        </View>
             
+            }
+           
+            
+               {isFaceDetected && !modalVisible ?
             <View style={styles.textView}>
-               {isFaceDetected && !modalVisible ? <Text style={styles.text}>
+                <Text style={styles.text}>
                     Please keep your face inside it </Text>
-                 : <Text style={styles.text}>
+                    </View>
+                 : null  }
+                 {! isFaceDetected && !modalVisible ?
+                      <View style={styles.textView}>
+                       <Text style={styles.text}>
                     Ensure that your face is positioned
-                    at the center of the shutter lines.  </Text>} 
+                    at the center of the shutter lines.  </Text>
+                          </View> : null}
+            
+                   
                
-            </View>
             {isFaceDetected && !modalVisible ? <Button mode="contained"  onPress={takePicture} style={styles.button}>
                 Start Verification
             </Button> : null}
@@ -219,9 +230,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         marginBottom:65,
+        marginTop:45,
         padding: 35,
         width: '90%',
-        height: '60%',
+        height: '40%',
         shadowColor: '#000',
         shadowOffset: {
           width: 0,
