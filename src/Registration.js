@@ -11,25 +11,24 @@ import PasswordInput from './PasswordInput'
 import axios from 'axios'
 import { baseUrl } from './Configuration'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DeviceInfo from 'react-native-device-info';
+// import DeviceInfo from 'react-native-device-info'; // we will use it later
 
 
 export default function Registration({ navigation }) {
-    const [email, setEmail] = useState({ value: 'sarfraz', error: '' })
-    const [password, setPassword] = useState({ value: 'test', error: '' })
+    const [email, setEmail] = useState({ value: '', error: '' })
+    const [password, setPassword] = useState({ value: '', error: '' })
     const [loading, setLoading] = useState(false)
-    const [deviceName, setDeviceName] = useState('')
+    // const [deviceName, setDeviceName] = useState('')
 
-    const getMobileName = async () => {
-        try {
-          const mobileName = await DeviceInfo.getDeviceName();
-          console.log(mobileName);
-          setDeviceName(mobileName)
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      getMobileName();
+    // const getMobileName = async () => {
+    //     try {
+    //       const mobileName = await DeviceInfo.getDeviceName();
+    //       setDeviceName(mobileName)
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   };
+    //   getMobileName();
       
     
     const onLoginPressed = () => {
@@ -142,7 +141,7 @@ export default function Registration({ navigation }) {
                         <View>
                             <Text style={[styles.connect]}>Connected to Web app </Text>
                             <Text style={[styles.user]}> Andrew's MacBook Air </Text>
-                            <Text style={[styles.user]}> {deviceName} </Text>
+                            {/* <Text style={[styles.user]}> {deviceName} </Text> */}
                         </View>
                     </View>
                     <View>
