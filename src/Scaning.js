@@ -1,18 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import { RNCamera } from 'react-native-camera';
 import Button from './Button';
 import { theme } from './Theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { baseUrl } from './Configuration';
-import axios from 'axios';
 
 const ScaningView = ({ navigation }) => {
     const [barcodeData, setBarcodeData] = useState('');
     const [verification, setVerification] = useState(false)
-    const [authToken, setAuthToken] = useState('')
 
     const handleBarcodeRead = (barcode) => {
         setBarcodeData(barcode.data);

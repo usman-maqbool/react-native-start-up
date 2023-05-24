@@ -1,4 +1,5 @@
-import { View, Image, Text,  StyleSheet, ActivityIndicator, ToastAndroid, StatusBar, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { View, Image, Text,  StyleSheet, ActivityIndicator, ToastAndroid,
+    Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
@@ -6,19 +7,31 @@ import Logo from './Logo'
 import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
-import Container from './Container'
 import PasswordInput from './PasswordInput'
 import axios from 'axios'
 import { baseUrl } from './Configuration'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from 'react-native-device-info';
 
 
 export default function Registration({ navigation }) {
-    const [email, setEmail] = useState({ value: 'usman', error: '' })
-    const [password, setPassword] = useState({ value: '', error: '' })
+    const [email, setEmail] = useState({ value: 'sarfraz', error: '' })
+    const [password, setPassword] = useState({ value: 'test', error: '' })
     const [loading, setLoading] = useState(false)
+    const [deviceName, setDeviceName] = useState('')
 
-
+    const getMobileName = async () => {
+        try {
+          const mobileName = await DeviceInfo.getDeviceName();
+          console.log(mobileName);
+          setDeviceName(mobileName)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getMobileName();
+      
+    
     const onLoginPressed = () => {
         // const emailError = emailValidator(email.value)
         // const passwordError = passwordValidator(password.value)
@@ -129,6 +142,7 @@ export default function Registration({ navigation }) {
                         <View>
                             <Text style={[styles.connect]}>Connected to Web app </Text>
                             <Text style={[styles.user]}> Andrew's MacBook Air </Text>
+                            <Text style={[styles.user]}> {deviceName} </Text>
                         </View>
                     </View>
                     <View>

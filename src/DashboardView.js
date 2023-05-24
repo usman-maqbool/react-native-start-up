@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import IconReload from 'react-native-vector-icons/Ionicons';
 import { theme } from './Theme'
 import { Card } from 'react-native-paper';
 import Button from './Button';
@@ -11,33 +12,34 @@ import { baseUrl } from './Configuration';
 import axios from 'axios';
 
 const DashboardView = ({ navigation }) => {
-    const [countdown, setCountdown] = useState(5); // Initial countdown value in seconds
     const [modalVisible, setModalVisible] = useState(false);
     const [authToken, setAuthToken] = useState('')
     const [sessionData, setSessionData] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         locaLdata()
     }, [])
 
 
-    const locaLdata = () => {
-        AsyncStorage.getItem("user")
-            .then((value) => {
-                if (value) {
-                    const data = JSON.parse(value);
-                    const token = data.access;
-                    fetchData(token)
-                } else {
-                    console.log("Value not found in local storage");
-                }
-            })
-            .catch((error) => {
-                console.log('Error retrieving data:', error);
-            });
-    }
+    const locaLdata = async () => {
+        try {
+          const value = await AsyncStorage.getItem("user");
+          if (value) {
+            const data = JSON.parse(value);
+            const token = data.access;
+            fetchData(token);
+          } else {
+            console.log("Value not found in local storage");
+          }
+        } catch (error) {
+          console.log("Error retrieving data:", error);
+        }
+      };
+      
 
     const fetchData = async (token) => {
+        setLoading(false)
         const fetchSession = `${baseUrl}/superadmin/exam_sessions`;
         console.log(fetchSession, 'Url log')
         const response = await axios.get(fetchSession, {
@@ -47,11 +49,13 @@ const DashboardView = ({ navigation }) => {
             },
         });
 
+        
         if (response.status === 200) {
             console.log(response.data, 'Data')
             const session = response.data[0];
             setSessionData(session);
             console.log(session, 'Dashboard SeSsion');
+            setLoading(true)
         }
     }
 
@@ -115,10 +119,10 @@ const DashboardView = ({ navigation }) => {
         };
       }, [originalTime]);
       
-      
+    
     const handleModalClose = () => {
         setModalVisible(false)
-        // navigation.navigate('Registration')
+        navigation.navigate('Registration')
     }
 
     return (
@@ -148,6 +152,28 @@ const DashboardView = ({ navigation }) => {
                     </View>
                 </Modal>
             </View>
+            { !modalVisible ? 
+            <View>
+                {/* { loading  ? 
+                <View style={{justifyContent:"center", alignItems:"center", marginTop:8}}>
+                   <TouchableOpacity
+                        style={[styles.buttonReload, { width: '50%' }]}
+                        onPress={locaLdata}
+                        >
+                        <View style={styles.buttonContent}>
+                            <IconReload name="ios-reload-circle" size={30} color="white" />
+                            <Text style={styles.buttonText}>Reload</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                    : 
+                    <View style={{alignItems:'center', justifyContent:'center'}}>
+                        <View style={{ backgroundColor: theme.colors.primary,  marginTop: 10, borderRadius: 10, width: '50%' }}>
+                            <ActivityIndicator style={{ marginRight: 20, marginTop: 7, paddingBottom: 5 }} size="large" color="white" />
+                        </View> 
+                    </View>
+                        } */}
+            </View> : null }
             { sessionData ?
                 <View>
                     { !modalVisible ? 
@@ -267,12 +293,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cardTextView: {
-        marginLeft: 15,
+        marginLeft: 20,
+        paddingRight:70
         // justifyContent:'center',
         // alignItems:'center',
     },
     card: {
-        width: '97%',
+        width: '99%',
         backgroundColor: 'white'
     },
     centeredView: {
@@ -332,7 +359,26 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: 15,
         fontWeight: '500'
-    }
+    },
+    buttonReload: {
+        width: '50%',
+        justifyContent:'center',
+        borderRadius: 10,
+        height:50,
+        fontSize: 15,
+        backgroundColor: theme.colors.primary
+    },
+    buttonContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color:'white',
+        marginLeft: 5,
+      },
 })
 
 export default DashboardView
