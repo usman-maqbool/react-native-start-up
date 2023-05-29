@@ -1,6 +1,6 @@
 import { View, Image, Text,  StyleSheet, ActivityIndicator, ToastAndroid,
     Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
 import Logo from './Logo'
@@ -11,25 +11,14 @@ import PasswordInput from './PasswordInput'
 import axios from 'axios'
 import { baseUrl } from './Configuration'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import DeviceInfo from 'react-native-device-info'; // we will use it later
 
 
 export default function Registration({ navigation }) {
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
     const [loading, setLoading] = useState(false)
-    // const [deviceName, setDeviceName] = useState('')
+    const [pcName, setPcName] = useState('')
 
-    // const getMobileName = async () => {
-    //     try {
-    //       const mobileName = await DeviceInfo.getDeviceName();
-    //       setDeviceName(mobileName)
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   };
-    //   getMobileName();
-      
     
     const onLoginPressed = () => {
         // const emailError = emailValidator(email.value)
@@ -39,8 +28,6 @@ export default function Registration({ navigation }) {
         //     setPassword({ ...password, error: passwordError })
         //     return
         // }
-        // console.log(email,"email")
-        // console.log(password,"password")
 
         setLoading(true)
 
@@ -60,14 +47,12 @@ export default function Registration({ navigation }) {
                     const data = response.data
                     AsyncStorage.setItem("user", JSON.stringify(data))
                     .then(() => {
-                        console.log('Data saved successfully');
                         navigation.navigate('Scaning');
                         setLoading(false);
                     })
                 }
             })
             .catch((error) => {
-                console.log(error.message);
                 if (error.response && error.response.status === 404 || error.response && error.response.status === 500) {
                     ToastAndroid.show("Oops! Something went wrong on our end. Our team has been notified and is frantically working to fix the issue.", ToastAndroid.LONG);
                 } else {
@@ -77,6 +62,25 @@ export default function Registration({ navigation }) {
             });
         Keyboard.dismiss();
     };
+
+    useEffect(() => {
+        locaLdata()
+    }, [])
+
+    const locaLdata = async () => {
+        try {
+          const value = await AsyncStorage.getItem("user");
+          if (value) {
+            const data = JSON.parse(value);
+            const pcDataName = data.user.pc_name
+            setPcName(pcDataName)
+        } else {
+            console.log("Value not found in local storage");
+          }
+        } catch (error) {
+          console.log("Error retrieving data:", error);
+        }
+      };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -90,6 +94,7 @@ export default function Registration({ navigation }) {
                             Sign in
                         </Text>
                     </View>
+                    <Text style={{color:'black'}}>{pcName} Text</Text>
                     <TextInputView
                         autoFocus={true}
                         label="Student ID"
@@ -140,8 +145,7 @@ export default function Registration({ navigation }) {
                         </View>
                         <View>
                             <Text style={[styles.connect]}>Connected to Web app </Text>
-                            <Text style={[styles.user]}> Andrew's MacBook Air </Text>
-                            {/* <Text style={[styles.user]}> {deviceName} </Text> */}
+                            { pcName ? <Text style={[styles.user]}>{pcName} </Text> : '' }
                         </View>
                     </View>
                     <View>

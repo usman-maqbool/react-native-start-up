@@ -20,7 +20,6 @@ const ScaningView = ({ navigation }) => {
     const getMobileName = async () => {
         try {
           const mobileName = await DeviceInfo.getDeviceName();
-          console.log(mobileName)
           setDeviceName(mobileName)
         } catch (error) {
           console.log(error);
@@ -57,7 +56,6 @@ const ScaningView = ({ navigation }) => {
           if (value) {
             const data = JSON.parse(value);
             const token = data.access;
-            console.log(token,'token')
             setUserToken(token);
         } else {
             console.log("Value not found in local storage");
@@ -67,7 +65,7 @@ const ScaningView = ({ navigation }) => {
         }
       };
 
-    const mobileFunction = (token) => {
+    const mobileFunction = () => {
         const headers = {
             Authorization: `Bearer ${userToken}`,
             "Content-Type": "application/json",
