@@ -1,15 +1,33 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import { RNCamera } from 'react-native-camera';
 import Button from './Button';
 import { theme } from './Theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import DeviceInfo from 'react-native-device-info'; 
+import { baseUrl } from './Configuration';
 
 const ScaningView = ({ navigation }) => {
     const [barcodeData, setBarcodeData] = useState('');
     const [verification, setVerification] = useState(false)
+    const [deviceName, setDeviceName] = useState('')
+    const profileUpdateUrl = `${baseUrl}/api/accounts/update/profile/`
+    const [userToken, setUserToken] = useState('')
+
+    const getMobileName = async () => {
+        try {
+          const mobileName = await DeviceInfo.getDeviceName();
+          console.log(mobileName)
+          setDeviceName(mobileName)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getMobileName();
+
 
     const handleBarcodeRead = (barcode) => {
         setBarcodeData(barcode.data);
@@ -21,11 +39,52 @@ const ScaningView = ({ navigation }) => {
         AsyncStorage.setItem("qrCode", JSON.stringify(barcodeData))
         .then(() => {
             console.log('Data saved successfully', 'Yes');
+            mobileFunction()
             navigation.navigate('Biometric')
           
         })
         
     };
+
+    useEffect(() => {
+        locaLdata()
+    }, [])
+
+
+    const locaLdata = async () => {
+        try {
+          const value = await AsyncStorage.getItem("user");
+          if (value) {
+            const data = JSON.parse(value);
+            const token = data.access;
+            console.log(token,'token')
+            setUserToken(token);
+        } else {
+            console.log("Value not found in local storage");
+          }
+        } catch (error) {
+          console.log("Error retrieving data:", error);
+        }
+      };
+
+    const mobileFunction = (token) => {
+        const headers = {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          };
+          const data = {
+            mobile_name: deviceName,
+          };
+          axios
+            .post(profileUpdateUrl, data, { headers })
+            .then((response) => {
+              console.log(response)
+              navigate("/qrcode");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+    }
 
     return (
         <Container>
