@@ -94,7 +94,6 @@ export default function Registration({ navigation }) {
                             Sign in
                         </Text>
                     </View>
-                    <Text style={{color:'black'}}>{pcName} Text</Text>
                     <TextInputView
                         autoFocus={true}
                         label="Student ID"
@@ -234,6 +233,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 20,
         width: '100%',
+        height:800,
     }
 })
 

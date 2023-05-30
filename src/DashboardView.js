@@ -1,5 +1,5 @@
-import { View, StyleSheet, ActivityIndicator, Image, Modal, TouchableOpacity, Text } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { View, StyleSheet, ActivityIndicator, SafeAreaView, ScrollView, RefreshControl, Image, Modal, TouchableOpacity, Text } from 'react-native'
+import React, { useState, useCallback, useEffect } from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -125,11 +125,28 @@ const DashboardView = ({ navigation }) => {
         navigation.navigate('Registration')
     }
 
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+      setRefreshing(true);
+      locaLdata()
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+    }, []);
+
+
     return (
-        <Container>
+        <SafeAreaView style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.scroll}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Logo />
             </TouchableOpacity>
+
             <View>
                 <Modal
                     animationType="fade"
@@ -152,28 +169,7 @@ const DashboardView = ({ navigation }) => {
                     </View>
                 </Modal>
             </View>
-            { !modalVisible ? 
-            <View>
-                {/* { loading  ? 
-                <View style={{justifyContent:"center", alignItems:"center", marginTop:8}}>
-                   <TouchableOpacity
-                        style={[styles.buttonReload, { width: '50%' }]}
-                        onPress={locaLdata}
-                        >
-                        <View style={styles.buttonContent}>
-                            <IconReload name="ios-reload-circle" size={30} color="white" />
-                            <Text style={styles.buttonText}>Reload</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                    : 
-                    <View style={{alignItems:'center', justifyContent:'center'}}>
-                        <View style={{ backgroundColor: theme.colors.primary,  marginTop: 10, borderRadius: 10, width: '50%' }}>
-                            <ActivityIndicator style={{ marginRight: 20, marginTop: 7, paddingBottom: 5 }} size="large" color="white" />
-                        </View> 
-                    </View>
-                        } */}
-            </View> : null }
+
             { sessionData ?
                 <View>
                     { !modalVisible ? 
@@ -230,14 +226,25 @@ const DashboardView = ({ navigation }) => {
 
                 </View>
             }
-        </Container>
+      </ScrollView>
+    </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+      },
     textView: {
         alignItems: 'center',
     },
+    scroll:{
+        backgroundColor:'white',
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+        height:765,
+        width:'100%',
+      },
     text: {
         textAlign: 'center',
         marginTop: 30,
