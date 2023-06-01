@@ -12,22 +12,20 @@ import axios from 'axios'
 import { baseUrl } from './Configuration'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function Registration({ navigation }) {
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
     const [loading, setLoading] = useState(false)
     const [pcName, setPcName] = useState('')
-
     
     const onLoginPressed = () => {
-        // const emailError = emailValidator(email.value)
-        // const passwordError = passwordValidator(password.value)
-        // if (emailError || passwordError) {
-        //     setEmail({ ...email, error: emailError })
-        //     setPassword({ ...password, error: passwordError })
-        //     return
-        // }
+        const emailError = emailValidator(email.value)
+        const passwordError = passwordValidator(password.value)
+        if (emailError || passwordError) {
+            setEmail({ ...email, error: emailError })
+            setPassword({ ...password, error: passwordError })
+            return
+        }
 
         setLoading(true)
 
@@ -100,8 +98,8 @@ export default function Registration({ navigation }) {
                         returnKeyType="next"
                         value={email.value}
                         onChangeText={(text) => setEmail({ value: text, error: '' })}
-                        // error={!!email.error}
-                        // errorText={email.error}
+                        error={!!email.error}
+                        errorText={email.error}
                         autoCapitalize="none"
                         autoCompleteType="off"
                         keyboardType="default"
@@ -111,8 +109,8 @@ export default function Registration({ navigation }) {
                         returnKeyType="done"
                         value={password.value}
                         onChangeText={(text) => setPassword({ value: text, error: '' })}
-                    // error={!!password.error}
-                    // errorText={password.error}
+                        error={!!password.error}
+                        errorText={password.error}
                     />
                     <View style={styles.row}>
                         <TouchableOpacity>
@@ -130,12 +128,25 @@ export default function Registration({ navigation }) {
                             </Button>
                         }
                     </View>
-                    <View>
-                        <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
+                    <View style={[ styles.text, {marginTop:30}]}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Privacy')}>
+                        <Text style={styles.touchLink}>
+                            Privacy Policy
+                        </Text>
+                    </TouchableOpacity>
+
+                    <Text style={{color:'black'}}>   &nbsp; and &nbsp;   </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Services')}>
+                        <Text style={styles.touchLink}>
+                        Terms of Service
+                        </Text>
+                    </TouchableOpacity>
+                      
+                        {/* <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
                             <Text style={[styles.touchLink]}> Zero Cheating Privacy Policy</Text>
                             &nbsp; and &nbsp;
                             <Text style={[styles.touchLink]}> Terms of Service</Text>
-                        </Text>
+                        </Text> */}
                     </View>
                     <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
                     <View style={[styles.rowFlex]}>
