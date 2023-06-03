@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, Modal, TouchableOpacity,Pressable, Image, Text } from 'react-native'
+import { View, StyleSheet, Alert, Modal, BackHandler, TouchableOpacity,Pressable, Image, Text } from 'react-native'
 import { RNCamera } from 'react-native-camera';
 import PropType from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
@@ -9,6 +9,9 @@ import Spinner from './Spinner';
 import axios from 'axios';
 import { baseUrl } from './Configuration';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import WarnIcon from 'react-native-vector-icons/AntDesign';
+import { theme } from './Theme';
+
 
 const FaceVerification = ({navigation}) => {
     const cameraRef = useRef(null);
@@ -108,11 +111,94 @@ const FaceVerification = ({navigation}) => {
       setLoading(true)
     }
 
+    const [backModal, setBackModal] = useState(false)
+
+    const handleModalClose = () => {
+        setBackModal(false)
+    }
+    const handleLogout = () => {
+        setBackModal(false)
+        AsyncStorage.removeItem('qrCode');
+        AsyncStorage.removeItem('user');
+        console.log('Data removed successfully');
+        navigation.navigate("Registration")
+    }
+  
+    useEffect(() => {
+      const backAction = () => {
+          
+          setBackModal(true)
+        return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', backAction);
+      };
+    }, []);
+
+
+
+
+
+
+
     return (
         <Container>
           <TouchableOpacity onPress={() => navigation.navigate('DashboardView')}>
               <Logo />
           </TouchableOpacity>
+
+
+
+          <View>
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={backModal}
+                >
+                    <View style={styles.backCenteredView}>
+                        <View style={styles.backModalView}>
+                            <View style={{  justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 100, color: 'red' }}><WarnIcon name="warning" size={80} color='red' /></Text>
+                            </View>
+                                <View style={{marginTop:30}}>
+
+                                    <Text style={styles.modalText}>Once the verification process has been initiated, it is not possible to go back. You have the option to click “Close” to restart the process or click “Proceed” to advance to the next step.</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', marginTop:20, justifyContent: 'space-between' }}>
+
+                                    <Button mode="contained" style={[
+                                        styles.buttonModal, {backgroundColor:theme.colors.secondary}
+                                    ]}
+                                        
+                                        onPress={handleLogout}
+                                    >
+                                     Cloose
+                                    </Button>
+                                    <Button mode="contained" style={[
+                                        styles.buttonModal,
+                                    ]}
+                                    onPress={handleModalClose}
+                                    >
+                                    
+                                    Proceed
+                                    </Button>
+                                </View>
+                            
+                        </View>
+
+                    </View>
+                </Modal>
+            </View>
+
+
+
+
+
+
+
+
+
             <Modal
               animationType="fade"
               transparent={true}
@@ -142,7 +228,7 @@ const FaceVerification = ({navigation}) => {
                 </View>
               </View>
             </Modal>
-            { modalVisible ? null : 
+            { modalVisible || backModal ? null : 
             <View style={styles.cameraContainer}>
             <RNCamera
                 style={styles.cameraPreview}
@@ -158,9 +244,10 @@ const FaceVerification = ({navigation}) => {
         </View>
             
             }
-           
-            
-               {isFaceDetected && !modalVisible ?
+
+            { !backModal ? 
+            <>
+               {isFaceDetected && !modalVisible  ?
             <View style={styles.textView}>
                 <Text style={styles.text}>
                     Please keep your face inside it </Text>
@@ -178,7 +265,8 @@ const FaceVerification = ({navigation}) => {
             {isFaceDetected && !modalVisible ? <Button mode="contained"  onPress={takePicture} style={styles.button}>
                 Start Verification
             </Button> : null}
-            
+            </>
+            : null }
         </Container>
     )
 }
@@ -249,6 +337,59 @@ const styles = StyleSheet.create({
       modalText: {
         marginTop:20,
       },
+
+
+
+      
+      backCenteredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    height: 220
+},
+backModalView: {
+    margin: 15,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    height:450,
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+},
+buttonModal: {
+    borderRadius: 20,
+    width:120
+},
+textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+},
+modalText: {
+    marginBottom: 15,
+    textAlign: 'left',
+    color: "black",
+    fontWeight: '500',
+    fontSize: 18,
+
+},
+
+
+
+
+
+
+
+
+
 
 
 })

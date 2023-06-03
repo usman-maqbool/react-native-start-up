@@ -1,4 +1,4 @@
-import { View, StyleSheet, ActivityIndicator, SafeAreaView, ScrollView, RefreshControl, Image, Modal, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, ActivityIndicator, BackHandler, SafeAreaView, ScrollView, RefreshControl, Image, Modal, TouchableOpacity, Text } from 'react-native'
 import React, { useState, useCallback, useEffect } from 'react'
 import Container from './Container'
 import Logo from './Logo'
@@ -91,7 +91,6 @@ const DashboardView = ({ navigation }) => {
           
           if (countdownDate && countdownDate > now) {
             const distance = countdownDate - now;
-            console.log(distance, 'distance')
       
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
@@ -135,6 +134,20 @@ const DashboardView = ({ navigation }) => {
       }, 2000);
     }, []);
 
+    useEffect(() => {
+        const backAction = () => {
+            console.log('backbutton pressed')
+            navigation.navigate('Registration')
+          return true;
+        };
+        BackHandler.addEventListener('hardwareBackPress', backAction);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', backAction);
+        };
+      }, []);
+
+
+      
 
     return (
         <SafeAreaView style={styles.container}>

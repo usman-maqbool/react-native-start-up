@@ -15,7 +15,7 @@ export default function PasswordInput({errorText,  description, ...props}) {
     }
 
     return (
-        <View>
+        <>
             <TextInput style={{backgroundColor:'white'}}
                 label='password'
                 secureTextEntry={isPasswordVisible}
@@ -38,7 +38,7 @@ export default function PasswordInput({errorText,  description, ...props}) {
                 <Text style={styles.description}>{description}</Text>
             ) : null}
             {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
-        </View>
+        </>
   )
 }
 

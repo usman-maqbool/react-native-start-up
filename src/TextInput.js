@@ -10,7 +10,7 @@ export default function TextInputView({ errorText, icon, description, ...props }
   };
   
   return (
-    <View >
+    <>
       <Input
         style={styles.input}
         right={
@@ -20,13 +20,12 @@ export default function TextInputView({ errorText, icon, description, ...props }
             onPress={handlePress}
             isFocused={false}
           />}
-        theme={{
-          colors:{
+          theme={{
+            colors:{
             primary: theme.colors.active,
             label:'black'
-          }
+            }
         }}
-        selectionColor={theme.colors.surface}
         underlineColor=""
         mode="contained"
         {...props}       
@@ -35,18 +34,13 @@ export default function TextInputView({ errorText, icon, description, ...props }
         <Text style={styles.description}>{description}</Text>
       ) : null}
       {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
-    </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    marginVertical: 12,
-  },
   input: {
     backgroundColor: 'white',
-    width:'100%'
   },
   description: {
     fontSize: 13,

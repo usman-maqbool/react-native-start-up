@@ -1,9 +1,10 @@
-import { View, Image, Text,  StyleSheet, ActivityIndicator, ToastAndroid,
+import { View, Image, Linking, Text,  StyleSheet, ActivityIndicator, ToastAndroid,
     Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
 import Logo from './Logo'
+import { TextInput } from 'react-native-paper'
 import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
@@ -46,6 +47,7 @@ export default function Registration({ navigation }) {
                     AsyncStorage.setItem("user", JSON.stringify(data))
                     .then(() => {
                         navigation.navigate('Scaning');
+                        console.log('Data Saved Successfully')
                         setLoading(false);
                     })
                 }
@@ -64,6 +66,24 @@ export default function Registration({ navigation }) {
     useEffect(() => {
         locaLdata()
     }, [])
+
+    // const privacyUrl = `${baseUrl}/superadmin/privacyurl`
+    const privacyUrl = `${baseUrl}/superadmin/privacy-policy`
+    const termsUrl = `${baseUrl}/superadmin/terms-condition`
+    const forgetUrl = `${baseUrl}/api/accounts/forget/password`
+
+    const handlePrivacyLink = (privacyUrl) => {
+        Linking.openURL(privacyUrl)
+          .catch((err) => console.error('Failed to open link:', err));
+      };
+    const handleTermsUrl = (termsUrl) => {
+        Linking.openURL(termsUrl)
+          .catch((err) => console.error('Failed to open link:', err));
+      };
+    const handleForgetUrl = (forgetUrl) => {
+        Linking.openURL(forgetUrl)
+          .catch((err) => console.error('Failed to open link:', err));
+      };
 
     const locaLdata = async () => {
         try {
@@ -92,7 +112,7 @@ export default function Registration({ navigation }) {
                             Sign in
                         </Text>
                     </View>
-                    <TextInputView
+                    <TextInputView 
                         autoFocus={true}
                         label="Student ID"
                         returnKeyType="next"
@@ -113,7 +133,7 @@ export default function Registration({ navigation }) {
                         errorText={password.error}
                     />
                     <View style={styles.row}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleForgetUrl(forgetUrl)}>
                             <Text style={styles.forgot}>Can’t sign in?</Text>
                         </TouchableOpacity>
                         {loading ?
@@ -129,14 +149,14 @@ export default function Registration({ navigation }) {
                         }
                     </View>
                     <View style={[ styles.text, {marginTop:30}]}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Privacy')}>
+                    <TouchableOpacity onPress={() => handlePrivacyLink(privacyUrl)}>
                         <Text style={styles.touchLink}>
                             Privacy Policy
                         </Text>
                     </TouchableOpacity>
 
                     <Text style={{color:'black'}}>   &nbsp; and &nbsp;   </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Services')}>
+                    <TouchableOpacity onPress={() => handleTermsUrl(termsUrl)}>
                         <Text style={styles.touchLink}>
                         Terms of Service
                         </Text>
@@ -240,7 +260,7 @@ const styles = StyleSheet.create({
     },
     containerView: {
         alignItems: 'center',
-        alignSelf: 'center',
+        // alignSelf: 'center',
         backgroundColor: 'white',
         paddingHorizontal: 20,
         width: '100%',
