@@ -156,9 +156,7 @@ const DashboardView = ({ navigation }) => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Logo />
-            </TouchableOpacity>
 
             <View>
                 <Modal

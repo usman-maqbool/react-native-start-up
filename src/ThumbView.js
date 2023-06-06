@@ -6,9 +6,7 @@ import Logo from './Logo'
 const ThumbView = ({navigation  }) => {
   return (
     <Container>
-              <TouchableOpacity  onPress={() => navigation.navigate('Verifying')}>
         <Logo />
-              </TouchableOpacity>
         <View>
             <View style={[styles.imageView]}>
                   <Image source={require('./assets/thumb.png')} style={styles.images} />

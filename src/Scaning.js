@@ -28,10 +28,6 @@ const ScaningView = ({ navigation }) => {
       };
       getMobileName();
 
-    //   const handleVibration = () => {
-    //     Vibration.vibrate(200);
-    //   };
-
     const handleBarcodeRead = (barcode) => {
         setBarcodeData(barcode.data);
         setVerification(true)
@@ -45,15 +41,12 @@ const ScaningView = ({ navigation }) => {
             console.log('Data saved successfully', 'Yes');
             mobileFunction()
             navigation.navigate('Biometric')
-          
         })
-        
     };
 
     useEffect(() => {
         locaLdata()
     }, [])
-
 
     const locaLdata = async () => {
         try {
@@ -100,7 +93,6 @@ const ScaningView = ({ navigation }) => {
         console.log('Data removed successfully');
         navigation.navigate("Registration")
     }
-
     useEffect(() => {
         const backAction = () => {
             
@@ -113,15 +105,9 @@ const ScaningView = ({ navigation }) => {
         };
       }, []);
 
-
-
-
     return (
         <Container>
-            <TouchableOpacity onPress={() => navigation.navigate('Biometric')}>
                 <Logo />
-            </TouchableOpacity>
-            
             <View>
                 <Modal
                     animationType="fade"
@@ -156,21 +142,11 @@ const ScaningView = ({ navigation }) => {
                                     Proceed
                                     </Button>
                                 </View>
-                            
                         </View>
-
                     </View>
                 </Modal>
             </View>
-            
-            
-            
-            
-            
-            
-            
             { !backModal ? 
-            
             <>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <RNCamera
@@ -178,13 +154,11 @@ const ScaningView = ({ navigation }) => {
                     onBarCodeRead={handleBarcodeRead}
                 />
             </View>
-
-                    <Text style={{textAlign:'center',color:'black'}}>{barcodeData}</Text>
-           
-
-
-
-
+            {barcodeData ? 
+                <View style={styles.barCodeView}>
+                    <Text style={{textAlign:'center', paddingVertical:10,color:'black'}}>{barcodeData}</Text>
+                </View> : null
+        }
             <View style={styles.textView}>
                 <Text style={styles.text}>
                     Scan the QR code shown
@@ -211,13 +185,12 @@ const ScaningView = ({ navigation }) => {
     )
 }
 
-
 const styles = StyleSheet.create({
     textView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: 70,
         width: '80%',
         marginLeft: 20
     },
@@ -245,7 +218,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 35,
         height:450,
-        // alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -275,12 +247,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
 
     },
-
-
-
-
-
-
+    barCodeView:{
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:"white", 
+        width:290,
+        marginLeft:15,
+        borderRadius:10,
+    }
 })
 
 

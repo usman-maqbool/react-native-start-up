@@ -144,12 +144,7 @@ const FaceVerification = ({navigation}) => {
 
     return (
         <Container>
-          <TouchableOpacity onPress={() => navigation.navigate('DashboardView')}>
               <Logo />
-          </TouchableOpacity>
-
-
-
           <View>
                 <Modal
                     animationType="fade"
@@ -180,24 +175,13 @@ const FaceVerification = ({navigation}) => {
                                     ]}
                                     onPress={handleModalClose}
                                     >
-                                    
                                     Proceed
                                     </Button>
                                 </View>
-                            
                         </View>
-
                     </View>
                 </Modal>
             </View>
-
-
-
-
-
-
-
-
 
             <Modal
               animationType="fade"
@@ -259,8 +243,6 @@ const FaceVerification = ({navigation}) => {
                     Ensure that your face is positioned
                     at the center of the shutter lines.  </Text>
                           </View> : null}
-            
-                   
                
             {isFaceDetected && !modalVisible ? <Button mode="contained"  onPress={takePicture} style={styles.button}>
                 Start Verification

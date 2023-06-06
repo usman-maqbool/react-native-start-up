@@ -70,9 +70,7 @@ const BiometricVerification = ({ navigation }) => {
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => navigation.navigate('FaceVerification')}>
         <Logo />
-      </TouchableOpacity>
 
       <View>
                 <Modal
@@ -114,28 +112,12 @@ const BiometricVerification = ({ navigation }) => {
                     </View>
                 </Modal>
             </View>
-
-
-
-
-
-
-
-
             { !backModal ? 
           <>
           <View style={styles.images}>
             <FingerIcon />
 
           </View>
-
-      
-       {/* <View style={[styles.textView]}>
-        <Text style={[styles.text]}>
-          Place your thumb & verify your identity
-          through fingerprint scanning for biometrics
-        </Text>
-      </View>  */}
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {! authenticate ? 
         <Button
@@ -159,8 +141,6 @@ const BiometricVerification = ({ navigation }) => {
     </Container>
   )
 }
-
-
 
 const styles = StyleSheet.create({
   images: {

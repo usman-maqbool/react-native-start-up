@@ -104,9 +104,7 @@ export default function Registration({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={[styles.containerView]}>
                 <View style={{ paddingHorizontal: 10, marginVertical: 10 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Scaning')}>
                         <Logo />
-                    </TouchableOpacity>
                     <View style={{ marginTop: 20, marginBottom: 30 }}>
                         <Text style={[styles.header]}>
                             Sign in
