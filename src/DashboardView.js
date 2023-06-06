@@ -98,7 +98,7 @@ const DashboardView = ({ navigation }) => {
             const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
       
             setRemainingTime(
-              ` ${hours} : ${minutes} : ${seconds} `
+              `${hours}:${minutes}:${seconds}`
             );
           } else if (countdownDate) {
             setModalVisible(true);
