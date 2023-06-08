@@ -89,6 +89,7 @@ const FaceVerification = ({navigation}) => {
             if (response.status == 200) {
               console.log(response)
               setSuccessRequest(true)
+              setModalVisible(false)
               navigation.navigate('DashboardView')
               setLoading(false)
             }
@@ -106,7 +107,7 @@ const FaceVerification = ({navigation}) => {
     }
 
     const closeModal = () => {
-      setModalVisible(!modalVisible)
+      setModalVisible(false)
       setFailedRequest(false)
       setLoading(true)
     }
@@ -121,6 +122,7 @@ const FaceVerification = ({navigation}) => {
         AsyncStorage.removeItem('qrCode');
         AsyncStorage.removeItem('user');
         console.log('Data removed successfully');
+        setBackModal(false)
         navigation.navigate("Registration")
     }
   

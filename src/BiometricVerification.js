@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect,  useState, useCallback } from 'react'
 import TouchID from 'react-native-touch-id';
-import { View, Text, StyleSheet, Image, Modal, BackHandler, Alert, TouchableOpacity } from 'react-native'
+import { View, Text, Linking, Platform , StyleSheet, Image, Modal, BackHandler, Alert, TouchableOpacity } from 'react-native'
 import Container from './Container'
 import Logo from './Logo'
 import Button from './Button'
@@ -9,39 +9,53 @@ import WarnIcon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { theme } from './Theme';
 
-
 const BiometricVerification = ({ navigation }) => {
 
   const [authenticate, setAuthenticate] = useState(false)
+  const [backModal, setBackModal] = useState(false)
+  const [alertModal, setAlertModal] = useState(false)
 
   const handleAuth = () => {
-    TouchID.isSupported().then((biometryType) => {
-      if (biometryType === "FaceID") {
-        TouchID.authenticate("Authenticate using Face ID")
-          .then((success) => {
-            console.log("Authentication success");
-            // Additional logic or actions after successful authentication
-          })
-          .catch((error) => {
-            // Alert.alert("Authentication Failed", error.message);
-
-          });
-      } else {
-        TouchID.authenticate("Authenticate using Touch ID")
-          .then((success) => {
-            console.log("Authentication success");
-            // Additional logic or actions after successful authentication
-            navigation.navigate('FaceVerification')
-          })
-          .catch((error) => {
-            // Alert.alert("Authentication Failed", error.message);
-            setAuthenticate(true)
-          });
-      }
-    });
+    TouchID.isSupported()
+      .then((biometryType) => {
+        if (biometryType === "FaceID") {
+          TouchID.authenticate("Authenticate using Face ID")
+            .then(() => {
+              console.log("Face ID authentication success");
+              navigation.navigate('FaceVerification')
+              // Additional logic or actions after successful authentication
+            })
+            .catch((error) => {
+              console.error("Face ID authentication failed:", error.message);
+            });
+        } else {
+          TouchID.authenticate("Authenticate using Touch ID")
+            .then(() => {
+              console.log("Touch ID authentication success");
+              navigation.navigate('FaceVerification')              
+              // Additional logic or actions after successful authentication
+            })
+            .catch((error) => {
+              // console.error("Touch ID is not supported");
+              // console.error("Touch ID authentication failed:", error.message);
+              setAuthenticate(true);
+            });
+        } 
+      })
+      .catch((error) => {
+        setAlertModal(true)
+      });
   };
-
-  const [backModal, setBackModal] = useState(false)
+  const openDeviceSettings = () => {
+    if (Platform.OS === 'android') {
+      Linking.sendIntent("android.settings.FINGERPRINT_SETTINGS");
+      setAlertModal(false)
+    }
+  };
+  const handleWithoutBiometric = () => {
+    setAlertModal(false)
+    navigation.navigate("FaceVerification")
+  }
 
   const handleModalClose = () => {
       setBackModal(false)
@@ -51,6 +65,7 @@ const BiometricVerification = ({ navigation }) => {
       AsyncStorage.removeItem('qrCode');
       AsyncStorage.removeItem('user');
       console.log('Data removed successfully');
+      setBackModal(false)
       navigation.navigate("Registration")
   }
 
@@ -65,18 +80,57 @@ const BiometricVerification = ({ navigation }) => {
       BackHandler.removeEventListener('hardwareBackPress', backAction);
     };
   }, []);
-
-
-
+  
   return (
     <Container>
         <Logo />
 
       <View>
-                <Modal
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={backModal}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <View style={{  justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 100, color: 'red' }}><WarnIcon name="warning" size={80} color='red' /></Text>
+                    </View>
+                        <View style={{marginTop:30}}>
+
+                            <Text style={styles.modalText}>Once the verification process has been initiated, it is not possible to go back. You have the option to click “Close” to restart the process or click “Proceed” to advance to the next step.</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', marginTop:20, justifyContent: 'space-between' }}>
+
+                            <Button mode="contained" style={[
+                                styles.buttonModal, {backgroundColor:theme.colors.secondary}
+                            ]}
+                                
+                                onPress={handleLogout}
+                            >
+                              Cloose
+                            </Button>
+                            <Button mode="contained" style={[
+                                styles.buttonModal,
+                            ]}
+                            onPress={handleModalClose}
+                            >
+                            
+                            Proceed
+                            </Button>
+                        </View>
+                    
+                </View>
+
+            </View>
+        </Modal>
+      </View>
+
+       {/* Add FingerprintModal */}
+       <Modal
                     animationType="fade"
                     transparent={true}
-                    visible={backModal}
+                    visible={alertModal}
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
@@ -85,35 +139,37 @@ const BiometricVerification = ({ navigation }) => {
                             </View>
                                 <View style={{marginTop:30}}>
 
-                                    <Text style={styles.modalText}>Once the verification process has been initiated, it is not possible to go back. You have the option to click “Close” to restart the process or click “Proceed” to advance to the next step.</Text>
+                                    <Text style={styles.modalText}>Your device doesn't have Fingerprint. Please Enable Fingerprint or move without Fingerprint.
+                                    It may cause your verification</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', marginTop:20, justifyContent: 'space-between' }}>
+                                {/* <View style={{ flexDirection: 'row', marginTop:20, justifyContent: 'space-between' }}> */}
+                                <View style={{  justifyContent: 'center', alignItems: 'center'}}>
 
                                     <Button mode="contained" style={[
-                                        styles.buttonModal, {backgroundColor:theme.colors.secondary}
+                                        styles.buttonModalAlert, {backgroundColor:theme.colors.secondary}
                                     ]}
-                                        
-                                        onPress={handleLogout}
-                                    >
-                                     Cloose
-                                    </Button>
-                                    <Button mode="contained" style={[
-                                        styles.buttonModal,
-                                    ]}
-                                    onPress={handleModalClose}
+                                    onPress={handleWithoutBiometric}
                                     >
                                     
-                                    Proceed
+                                    Proceed without FingerPrint
+                                       
+                                    </Button>
+                                    <Button mode="contained" style={[
+                                        styles.buttonModalAlert,
+                                    ]}
+                                    onPress={openDeviceSettings}
+                                    >
+                                     Enable Fingerprint
+                                    
                                     </Button>
                                 </View>
-                            
                         </View>
-
                     </View>
                 </Modal>
-            </View>
-            { !backModal ? 
+            { !backModal && !alertModal ? 
           <>
+             
+
           <View style={styles.images}>
             <FingerIcon />
 
@@ -215,6 +271,10 @@ modalView: {
 buttonModal: {
     borderRadius: 20,
     width:120
+},
+buttonModalAlert: {
+    borderRadius: 20,
+    // width:120
 },
 textStyle: {
     color: 'white',

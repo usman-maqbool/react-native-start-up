@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import { theme } from './Theme'
 import Button from './Button'
 import Logo from './Logo'
-import { TextInput } from 'react-native-paper'
 import TextInputView from './TextInput'
 import { emailValidator } from './emailValidator'
 import { passwordValidator } from './passwordValidator'
@@ -14,8 +13,8 @@ import { baseUrl } from './Configuration'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Registration({ navigation }) {
-    const [email, setEmail] = useState({ value: '', error: '' })
-    const [password, setPassword] = useState({ value: '', error: '' })
+    const [email, setEmail] = useState({ value: 'admin', error: '' })
+    const [password, setPassword] = useState({ value: 'admin3450', error: '' })
     const [loading, setLoading] = useState(false)
     const [pcName, setPcName] = useState('')
     
@@ -67,7 +66,6 @@ export default function Registration({ navigation }) {
         locaLdata()
     }, [])
 
-    // const privacyUrl = `${baseUrl}/superadmin/privacyurl`
     const privacyUrl = `${baseUrl}/superadmin/privacy-policy`
     const termsUrl = `${baseUrl}/superadmin/terms-condition`
     const forgetUrl = `${baseUrl}/api/accounts/forget/password`
@@ -104,7 +102,9 @@ export default function Registration({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={[styles.containerView]}>
                 <View style={{ paddingHorizontal: 10, marginVertical: 10 }}>
+                    <View style={{alignItems:'center'}}>                    
                         <Logo />
+                    </View>
                     <View style={{ marginTop: 20, marginBottom: 30 }}>
                         <Text style={[styles.header]}>
                             Sign in

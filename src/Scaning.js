@@ -91,6 +91,7 @@ const ScaningView = ({ navigation }) => {
         AsyncStorage.removeItem('qrCode');
         AsyncStorage.removeItem('user');
         console.log('Data removed successfully');
+        setBackModal(false)
         navigation.navigate("Registration")
     }
     useEffect(() => {

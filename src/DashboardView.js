@@ -3,7 +3,6 @@ import React, { useState, useCallback, useEffect } from 'react'
 import Container from './Container'
 import Logo from './Logo'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import IconReload from 'react-native-vector-icons/Ionicons';
 import { theme } from './Theme'
 import { Card } from 'react-native-paper';
 import Button from './Button';
@@ -151,94 +150,90 @@ const DashboardView = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
+            <ScrollView
+                contentContainerStyle={styles.scroll}
+                refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }>
                 <Logo />
 
-            <View>
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={modalVisible}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={[styles.modalText, { color: theme.colors.primary }]}>Congratulations!  {'\u{1F389}'}</Text>
-                            <Text style={styles.modalText}>Your verification has been successfully completed. Please proceed to the Zero Cheating desktop app.</Text>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisible}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={[styles.modalText, { color: theme.colors.primary }]}>Congratulations!  {'\u{1F389}'}</Text>
+                                <Text style={styles.modalText}>Your verification has been successfully completed. Please proceed to the Zero Cheating desktop app.</Text>
 
-                            <Button mode="contained" style={[
-                                styles.button,
-                            ]}
-                                onPress={handleModalClose}
-                            >
-                                Cloose
-                            </Button>
-                        </View>
-                    </View>
-                </Modal>
-            </View>
-
-            { sessionData ?
-                <View>
-                    { !modalVisible ? 
-                    <>
-                         <View style={[styles.textView]}>
-                        <Text style={[styles.text]}>
-                            Your exam will start in
-                        </Text>
-                        <Text style={[styles.textTimer]}>
-                            {/* 00:00:{countdown} */}
-                            {remainingTime}
-
-                        </Text>
-                    </View>
-
-                    <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
-                    <View style={[styles.listView]}>
-                        <View style={[styles.listRow]}>
-                            <Icon name="check-circle" size={28} color={theme.colors.primary} />
-                            <Text style={[styles.listText]}>Facial Verification</Text>
-                        </View>
-                        <View style={[styles.listRow]}>
-                            <Icon name="check-circle" size={28} color={theme.colors.primary} />
-                            <Text style={[styles.listText]}>Biometric Verification</Text>
-                        </View>
-                    </View>
-                    <View style={styles.cardView}>
-                        <Card style={styles.card}>
-                            <View style={{ padding: 10, flexDirection: 'row' }}>
-                                <Image source={require('./assets/exam.png')} style={{ width: 70, height: 60, marginTop: 10 }} />
-                                <View style={styles.cardTextView}>
-                                    <Text style={ styles.sessionText}>{sessionData ? sessionData.teacher_name : null}</Text>
-                                    <Text style={[ styles.sessionText, {fontWeight: '700'} ]}>{sessionData ? sessionData.subject_name : null}</Text>
-                                    <Text style={ styles.sessionText}>Start {sessionData ? formattedTime : null}</Text>
-                                </View>
+                                <Button mode="contained" style={[
+                                    styles.button,
+                                ]}
+                                    onPress={handleModalClose}
+                                >
+                                    Cloose
+                                </Button>
                             </View>
-                        </Card>
-                    </View>
-                    <View style={[styles.iconButton]}>
-                    </View>
-                    </> : null
-                    }
-                   
-                </View>
-                :
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require('./assets/noData.png')} style={{ width: 350, height: 400, resizeMode: 'contain' }} />
-                    <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.secondary, marginTop: 10, borderRadius: 10, width: '56%' }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <ActivityIndicator style={{ marginRight: 10, marginTop: 8, paddingBottom: 5 }} size="large" color="white" />
-                            <Text style={{ color: 'white', fontWeight: 600, fontSize: 20 }}>Waiting</Text>
+                        </View>
+                    </Modal>
+
+                { sessionData ?
+                    <>
+                        { !modalVisible ? 
+                            <>
+                                <View style={[styles.textView]}>
+                                    <Text style={[styles.text]}>
+                                        Your exam will start in
+                                    </Text>
+                                    <Text style={[styles.textTimer]}>
+                                        {remainingTime}
+                                        </Text>
+                                </View>
+                                {/* hrLine */}
+                                <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
+                                <View style={[styles.listView]}>
+                                    <View style={[styles.listRow]}>
+                                        <Icon name="check-circle" size={28} color={theme.colors.primary} />
+                                        <Text style={[styles.listText]}>Facial Verification</Text>
+                                    </View>
+                                    <View style={[styles.listRow]}>
+                                        <Icon name="check-circle" size={28} color={theme.colors.primary} />
+                                        <Text style={[styles.listText]}>Biometric Verification</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.cardView}>
+                                    <Card style={styles.card}>
+                                        <View style={{ padding: 10, flexDirection: 'row' }}>
+                                            <Image source={require('./assets/exam.png')} style={{ width: 70, height: 60, marginTop: 10 }} />
+                                            <View style={styles.cardTextView}>
+                                                <Text style={ styles.sessionText}>{sessionData ? sessionData.teacher_name : null}</Text>
+                                                <Text style={[ styles.sessionText, {fontWeight: '700'} ]}>{sessionData ? sessionData.subject_name : null}</Text>
+                                                <Text style={ styles.sessionText}>Start {sessionData ? formattedTime : null}</Text>
+                                            </View>
+                                        </View>
+                                    </Card>
+                                </View>
+                                <View style={[styles.iconButton]}>
+                                </View>
+                            </>
+                         : null
+                        }
+                    
+                    </>
+                    :
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Image source={require('./assets/noData.png')} style={{ width: 350, height: 400, resizeMode: 'contain' }} />
+                        <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.secondary, marginTop: 10, borderRadius: 10, width: '56%' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <ActivityIndicator style={{ marginRight: 10, marginTop: 8, paddingBottom: 5 }} size="large" color="white" />
+                                <Text style={{ color: 'white', fontWeight: 600, fontSize: 20 }}>Waiting</Text>
+                            </View>
                         </View>
                     </View>
-
-                </View>
-            }
-      </ScrollView>
-    </SafeAreaView>
+                }
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
