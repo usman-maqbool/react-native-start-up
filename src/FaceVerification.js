@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     cameraContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 180,
+        marginBottom: 190,
     },
     cameraPreview: {
         width: '100%',
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     textView: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 30,
+        marginTop: 12,
     },
     text: {
         textAlign: 'center',
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     },
     faceBlock:{
         position: 'absolute',
-        marginTop:20,
+        top:30,
         width: 250,
         height: 250,
         justifyContent:'center',

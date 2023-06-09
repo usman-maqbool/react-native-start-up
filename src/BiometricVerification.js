@@ -210,9 +210,9 @@ const styles = StyleSheet.create({
     height: 120,
     // height: '100%',
     // width: '100%',
-    marginBottom: 40,
+    // marginBottom: 40,
     // marginLeft:100,
-    marginTop:240,
+    marginTop:200,
     // alignItems:'center',
     // justifyContent:'center',
     resizeMode: 'stretch'

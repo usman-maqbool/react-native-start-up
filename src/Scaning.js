@@ -27,13 +27,22 @@ const ScaningView = ({ navigation }) => {
         }
       };
       getMobileName();
-
-    const handleBarcodeRead = (barcode) => {
+     
+      let hasVibrated = false;
+      const vibrateOnce = () => {
+        if (!hasVibrated) {
+          Vibration.vibrate(100); // Adjust the duration as needed
+          hasVibrated = true;
+        }
+      };
+      
+      const handleBarcodeRead = (barcode) => {
         setBarcodeData(barcode.data);
-        setVerification(true)
-        Vibration.vibrate(5);
-       
-    };
+        setVerification(true);
+      
+        // Trigger the vibration once
+        vibrateOnce();
+      };
 
     const startVerification = () => {
         AsyncStorage.setItem("qrCode", JSON.stringify(barcodeData))
@@ -194,9 +203,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 70,
-        width: '80%',
-        marginLeft: 20
+        marginTop: 80,
+        width: '100%',
+        // marginLeft: 20
     },
     text: {
         textAlign: 'center',
@@ -233,6 +242,7 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius: 20,
+        width:'80%'
     },
     buttonModal: {
         borderRadius: 20,
