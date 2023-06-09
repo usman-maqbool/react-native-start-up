@@ -139,13 +139,13 @@ const BiometricVerification = ({ navigation }) => {
                             </View>
                                 <View style={{marginTop:30}}>
 
-                                    <Text style={styles.modalText}>Your device doesn't have Fingerprint. Please Enable Fingerprint or move without Fingerprint.
-                                    It may cause your verification</Text>
+                                    <Text style={[styles.modalText, {marginBottom:65}]}>Your device doesn’t have fingerprint enabled. Please enable fingerprint authentication.
+                                     </Text>
                                 </View>
                                 {/* <View style={{ flexDirection: 'row', marginTop:20, justifyContent: 'space-between' }}> */}
-                                <View style={{  justifyContent: 'center', alignItems: 'center'}}>
+                                <View style={{  justifyContent: 'center',  marginBottom:120}}>
 
-                                    <Button mode="contained" style={[
+                                    {/* <Button mode="contained" style={[
                                         styles.buttonModalAlert, {backgroundColor:theme.colors.secondary}
                                     ]}
                                     onPress={handleWithoutBiometric}
@@ -153,9 +153,9 @@ const BiometricVerification = ({ navigation }) => {
                                     
                                     Proceed without FingerPrint
                                        
-                                    </Button>
+                                    </Button> */}
                                     <Button mode="contained" style={[
-                                        styles.buttonModalAlert,
+                                        styles.buttonModalAlert
                                     ]}
                                     onPress={openDeviceSettings}
                                     >
