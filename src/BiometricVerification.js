@@ -83,10 +83,7 @@ const BiometricVerification = ({ navigation }) => {
   
   return (
     <Container>
-      <TouchableOpacity onPress={()=> navigation.navigate("FaceVerification")}>
         <Logo />
-
-      </TouchableOpacity>
 
       <View>
         <Modal
