@@ -146,14 +146,14 @@ export default function Registration({ navigation }) {
                             </Button>
                         }
                     </View>
-                    <View style={[ styles.text, {marginTop:30}]}>
+                    <View style={[ styles.text, {marginTop:30, justifyContent:'space-between'}]}>
                     <TouchableOpacity onPress={() => handlePrivacyLink(privacyUrl)}>
                         <Text style={styles.touchLink}>
                             Privacy Policy
                         </Text>
                     </TouchableOpacity>
 
-                    <Text style={{color:'black'}}>   &nbsp; and &nbsp;   </Text>
+                    {/* <Text style={{color:'black'}}>   &nbsp; and &nbsp;   </Text> */}
                     <TouchableOpacity onPress={() => handleTermsUrl(termsUrl)}>
                         <Text style={styles.touchLink}>
                         Terms of Service
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     },
     rowFlex: {
         flexDirection: 'row',
-        marginTop: 30,
+        marginTop: 50,
         alignItems: 'center',
     },
     forgot: {
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 20,
         width: '100%',
-        height:800,
+        height:'100%',
     }
 })
 

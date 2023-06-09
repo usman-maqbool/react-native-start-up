@@ -83,7 +83,10 @@ const BiometricVerification = ({ navigation }) => {
   
   return (
     <Container>
+      <TouchableOpacity onPress={()=> navigation.navigate("FaceVerification")}>
         <Logo />
+
+      </TouchableOpacity>
 
       <View>
         <Modal
@@ -169,27 +172,30 @@ const BiometricVerification = ({ navigation }) => {
             { !backModal && !alertModal ? 
           <>
              
+      <View style={{ justifyContent:'center', alignItems:'center'}}>
 
-          <View style={styles.images}>
-            <FingerIcon />
+     
+        <View style={[styles.images]}>
+          <FingerIcon />
 
-          </View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {! authenticate ? 
-        <Button
+        </View>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          {! authenticate ? 
+          <Button
+            mode="contained"
+            style={styles.button}
+            onPress={handleAuth}
+          >
+            Authenticate
+          </Button>
+          : <Button
           mode="contained"
           style={styles.button}
           onPress={handleAuth}
         >
-          Authenticate
-        </Button>
-        : <Button
-        mode="contained"
-        style={styles.button}
-        onPress={handleAuth}
-      >
-        Try again
-      </Button> }
+          Try again
+        </Button> }
+        </View>
       </View>
       </>
 
@@ -201,10 +207,14 @@ const BiometricVerification = ({ navigation }) => {
 const styles = StyleSheet.create({
   images: {
     width: 120,
-    // marginBottom: 80,
-    marginLeft:100,
-    marginTop:220,
     height: 120,
+    // height: '100%',
+    // width: '100%',
+    marginBottom: 40,
+    // marginLeft:100,
+    marginTop:240,
+    // alignItems:'center',
+    // justifyContent:'center',
     resizeMode: 'stretch'
   },
   imageView: {

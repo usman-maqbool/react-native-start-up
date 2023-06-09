@@ -266,13 +266,13 @@ const styles = StyleSheet.create({
     },
     cameraPreview: {
         width: '100%',
-        marginTop:150,
+        marginTop:160,
         height: 80, // Adjust the height as needed
     },
     textView: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 30,
     },
     text: {
         textAlign: 'center',
@@ -283,14 +283,16 @@ const styles = StyleSheet.create({
     },
     faceBlock:{
         position: 'absolute',
-        top: '20%',
-        left: '12%',
-        width: '75%',
-        height: '100%',
+        marginTop:20,
+        width: 250,
+        height: 250,
+        justifyContent:'center',
+        alignItems:'center',
         borderWidth: 8,
         borderColor: '#f59707',
         borderStyle: 'dotted', // Set border style to 'dotted'
-        borderRadius: 125, // Make it a circle
+        borderRadius: 200, // Make it a circle
+        // borderRadius: '50%', // Make it a circle
         opacity: 0.6,
     },
     centeredView: {

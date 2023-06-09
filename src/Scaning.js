@@ -160,7 +160,7 @@ const ScaningView = ({ navigation }) => {
             </View>
             {barcodeData ? 
                 <View style={styles.barCodeView}>
-                    <Text style={{textAlign:'center', paddingVertical:10,color:'black'}}>{barcodeData}</Text>
+                    <Text style={{textAlign:'center', color:'black'}}>{barcodeData}</Text>
                 </View> : null
         }
             <View style={styles.textView}>
@@ -254,9 +254,10 @@ const styles = StyleSheet.create({
     barCodeView:{
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:"white", 
-        width:290,
-        marginLeft:15,
+        backgroundColor:"#E9ECEF", 
+        // width:290,
+        height:50,
+        // marginLeft:15,
         borderRadius:10,
     }
 })
