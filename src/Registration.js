@@ -13,8 +13,8 @@ import { baseUrl } from './Configuration'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Registration({ navigation }) {
-    const [email, setEmail] = useState({ value: 'admin', error: '' })
-    const [password, setPassword] = useState({ value: 'admin3450', error: '' })
+    const [email, setEmail] = useState({ value: '', error: '' })
+    const [password, setPassword] = useState({ value: '', error: '' })
     const [loading, setLoading] = useState(false)
     const [pcName, setPcName] = useState('')
     
@@ -159,12 +159,6 @@ export default function Registration({ navigation }) {
                         Terms of Service
                         </Text>
                     </TouchableOpacity>
-                      
-                        {/* <Text style={[styles.text]}>Protected by reCAPTCHA and subject to the
-                            <Text style={[styles.touchLink]}> Zero Cheating Privacy Policy</Text>
-                            &nbsp; and &nbsp;
-                            <Text style={[styles.touchLink]}> Terms of Service</Text>
-                        </Text> */}
                     </View>
                     <View style={{ borderBottomColor: '#DCDBDD', marginTop: 20, borderBottomWidth: 1 }} />
                     <View style={[styles.rowFlex]}>

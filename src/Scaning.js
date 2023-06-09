@@ -108,7 +108,10 @@ const ScaningView = ({ navigation }) => {
 
     return (
         <Container>
+            <TouchableOpacity onPress={() => navigation.navigate("Biometric")}>
                 <Logo />
+
+            </TouchableOpacity>
             <View>
                 <Modal
                     animationType="fade"

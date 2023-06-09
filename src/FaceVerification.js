@@ -11,7 +11,7 @@ import { baseUrl } from './Configuration';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WarnIcon from 'react-native-vector-icons/AntDesign';
 import { theme } from './Theme';
-
+import DeviceInfo from 'react-native-device-info';
 
 const FaceVerification = ({navigation}) => {
     const cameraRef = useRef(null);
@@ -23,6 +23,8 @@ const FaceVerification = ({navigation}) => {
     const [authToken, setAuthToken] = useState('')
     const [qrCode, setQrCode] = useState('')
 
+    const deviceInfo = DeviceInfo.getManufacturer();
+    const manufacturer = deviceInfo._j;
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
           const face = faces[0];
@@ -81,6 +83,7 @@ const FaceVerification = ({navigation}) => {
         const data = {
           "dataImage":dataImage,
           'qrToken':qrCode,
+          "mobile_manufacturer":manufacturer
           
         };
         const sessionURL = `${baseUrl}/client/upload_image/`
