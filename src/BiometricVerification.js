@@ -119,9 +119,7 @@ const BiometricVerification = ({ navigation }) => {
                             Proceed
                             </Button>
                         </View>
-                    
                 </View>
-
             </View>
         </Modal>
       </View>
