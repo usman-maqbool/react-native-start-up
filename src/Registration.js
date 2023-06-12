@@ -132,7 +132,7 @@ export default function Registration({ navigation }) {
                     />
                     <View style={styles.row}>
                         <TouchableOpacity onPress={() => handleForgetUrl(forgetUrl)}>
-                            <Text style={styles.forgot}>Can’t sign in?</Text>
+                            <Text style={styles.forgot}>Forgot Password?</Text>
                         </TouchableOpacity>
                         {loading ?
                             <View style={{ backgroundColor: theme.colors.scndPrimary, marginTop: 10, borderRadius: 10, width: '56%' }}>
@@ -174,7 +174,7 @@ export default function Registration({ navigation }) {
                         <Text style={[styles.text]}>
                             Make sure your mobile device is connected to
                             the web app, Your verification will only proceed if
-                            connected to the web app
+                            connected to the web app.
                         </Text>
                     </View>
                 </View>
