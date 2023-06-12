@@ -120,7 +120,7 @@ export default function Registration({ navigation }) {
                         errorText={email.error}
                         autoCapitalize="none"
                         autoCompleteType="off"
-                        keyboardType="default"
+                        keyboardType="ascii-capable"
                         icon='check-circle'
                     />
                     <PasswordInput
@@ -134,8 +134,8 @@ export default function Registration({ navigation }) {
                         <TouchableOpacity onPress={() => handleForgetUrl(forgetUrl)}>
                             <Text style={styles.forgot}>Forgot Password?</Text>
                         </TouchableOpacity>
-                        {loading ?
-                            <View style={{ backgroundColor: theme.colors.scndPrimary, marginTop: 10, borderRadius: 10, width: '56%' }}>
+                        { loading ?
+                            <View style={{ backgroundColor: theme.colors.scndPrimary, marginTop: 10, borderRadius: 10, width: '45%' }}>
                                 <ActivityIndicator style={{ marginRight: 20, marginTop: 8, paddingBottom: 5 }} size="large" color="white" />
                             </View>
                             :
