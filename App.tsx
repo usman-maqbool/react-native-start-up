@@ -9,6 +9,7 @@ import CameraScreen from './src/VerifyingView';
 import DashboardView from './src/DashboardView';
 import BiometricVerification from './src/BiometricVerification';
 import FaceVerification from './src/FaceVerification';
+import SignUp from './src/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home}/>
+        <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="Registration" component={Registration}/>
         <Stack.Screen name="Scaning" component={ScaningView}/>
         <Stack.Screen name="Thumb" component={ThumbView}/>

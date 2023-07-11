@@ -18,6 +18,12 @@ export default function Home({ navigation }) {
       >
         Sign In
       </Button>
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate('SignUp')}
+      >
+        Sign Up
+      </Button>
     </NewBack>
   )
 }
