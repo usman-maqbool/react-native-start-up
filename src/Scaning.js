@@ -141,7 +141,9 @@ const ScaningView = ({ navigation }) => {
                                         
                                         onPress={handleLogout}
                                     >
-                                     Cloose
+                                     <Text>
+                                        Cloose
+                                     </Text>
                                     </Button>
                                     <Button mode="contained" style={[
                                         styles.buttonModal,

@@ -13,19 +13,21 @@ import SelectDropdown from 'react-native-select-dropdown'
 import ArrowIcon from 'react-native-vector-icons/FontAwesome';
 import { theme } from './Theme'
 import DropDownPicker from 'react-native-dropdown-picker'
+import Button from './Button'
 
-const SignUp = () => {
+
+const SignUp = ({navigation}) => {
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
     const [loading, setLoading] = useState(false)
-    const [selectedUniversity, setelectedUniversity] = useState('');
-    const [universityData, setUniversityData] = useState([])
+
     const [university, setUniversity] = useState(false);
-    
     const [isClass, setIsClass] = useState(false)
+    const [universityData, setUniversityData] = useState([])
     const [recievedClass, setRecievedClass] = useState([])
     const [selectedClass, setSelectedClass] = useState('')
-
+    const [selectedUniversity, setelectedUniversity] = useState('');
+    const [classValue, setClassValue] = useState('')
 
 
     useEffect(() => {
@@ -66,7 +68,8 @@ const SignUp = () => {
       
           if (response.status === 200) {
             console.log(response.data);
-            const classArray = response.data.map((cla) => ({label:cla.class_name, value:cla.class_name}));
+            const classArray = response.data.map((cla) => ({label:cla.class_name, value:cla.id}));
+            
             setRecievedClass(classArray)
             // setLoading(false)
           }
@@ -77,8 +80,16 @@ const SignUp = () => {
         }
     };
 
+    const handleClassSelection = (selectedClass) => {
+        console.log(selectedClass.value)
+        setClassValue(selectedClass.value)
+    }
 
-    const onLoginPressed = () => {
+
+
+ 
+
+    const OnSignUpHandle = () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
         if (emailError || passwordError) {
@@ -86,29 +97,31 @@ const SignUp = () => {
             setPassword({ ...password, error: passwordError })
             return
         }
-        setLoading(true)
+
         const headers = {
             'Content-Type': 'application/json',
         };
         const data = {
             "username": email.value,
             "password": password.value,
+            "students": [classValue],
         };
-        const loginUrl = `${baseUrl}/api/accounts/login/`
+        const loginUrl = `${baseUrl}/user`
         axios.post(loginUrl, data, { headers })
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     const data = response.data
-                    AsyncStorage.setItem("user", JSON.stringify(data))
-                    .then(() => {
-                        navigation.navigate('Scaning');
-                        console.log('Data Saved Successfully')
-                        setLoading(false);
-                    })
+                    ToastAndroid.show("Student created sucessfully.", ToastAndroid.LONG);
+                    navigation.navigate('Registration')
                 }
             })
             .catch((error) => {
-                if (error.response && error.response.status === 404 || error.response && error.response.status === 500) {
+                if (error.response && error.response.status === 400 ) {
+                    console.log(error.response.status)
+                    ToastAndroid.show("A user with that username already exists.", ToastAndroid.LONG);
+                }
+                else if (error.response && error.response.status === 404 || error.response && error.response.status === 500) {
+                    console.log(error.response.status)
                     ToastAndroid.show("Oops! Something went wrong on our end. Our team has been notified and is frantically working to fix the issue.", ToastAndroid.LONG);
                 } else {
                     ToastAndroid.show('Incorrect usernaem or password!', ToastAndroid.SHORT);
@@ -159,6 +172,7 @@ const SignUp = () => {
                        <View style={{marginTop:20 ,position: 'relative', zIndex:100 }}>
                             {university ? 
                             <DropDownPicker
+                              
                                 placeholder='Select University'
                                 items={universityData}                                                  
                                 style={{borderColor:theme.colors.active}}
@@ -173,7 +187,9 @@ const SignUp = () => {
                                 position: 'absolute',
                                 }}
                                 dropDownDirection='BOTTOM'
-                            /> : <DropDownPicker
+                            /> 
+                            
+                            : <DropDownPicker
                                 placeholder='Select University'
                                 items={universityData}
                                 open={university}
@@ -191,20 +207,25 @@ const SignUp = () => {
                             }
                             </View> 
                             {selectedUniversity ? 
-                            <View style={{ marginTop: 10, position: 'relative', zIndex:0 }}>
+                            <View style={{ marginTop: 20, position: 'relative', zIndex:10 }}>
                                 <DropDownPicker
                                     placeholder='Select Class'
                                     items={recievedClass}
                                     open={isClass}
                                     value={selectedClass}
+                                    dropDownContainerStyle={{
+                                        position: 'absolute',
+                                        }}
                                     setOpen={setIsClass}
                                     setValue={setSelectedClass}
                                     setItems={setRecievedClass}
+                                    onSelectItem={handleClassSelection}
                                     dropDownDirection='BOTTOM'
                                 />
+                                 
                             </View>
                             :
-                            <View style={{ marginTop: 10, position: 'relative', zIndex:0 }}>
+                            <View style={{ marginTop: 20, position: 'relative', zIndex:0 }}>
                                 <DropDownPicker
                                     disabled 
                                     placeholder='Select Class'
@@ -217,8 +238,26 @@ const SignUp = () => {
                                     setItems={setRecievedClass}
                                 />
                             </View>}
-
-                    
+                            <View style={{marginTop:20, alignItems:'center', zIndex:0, justifyContent:'center'}}>
+                            {selectedClass && selectedUniversity ? 
+                        <Button mode="contained"
+                        style={[
+                            styles.button,
+                            ]}
+                        onPress={OnSignUpHandle}>
+                            Sign up
+                    </Button>    
+                         :
+                        <Button mode="contained"
+                        disabled
+                            style={[
+                                styles.button,
+                                {backgroundColor:theme.colors.secondary}
+                                ]}>
+                                Sign up
+                        </Button>
+                             }
+                            </View>
 
                        {/* <View style={{ width: '100%', marginVertical: 15 }}>
                             <Text style={{ fontSize: 16, marginBottom: 5, color:theme.colors.active, alignSelf: 'flex-start' }}>University:</Text>
@@ -281,7 +320,11 @@ const styles = StyleSheet.create({
       },
     dropDownStyle:{
         width:'100%',
-      }
+      },
+      button: {
+        borderRadius: 20,
+        width:'80%'
+    },
 })
 
 export default SignUp
