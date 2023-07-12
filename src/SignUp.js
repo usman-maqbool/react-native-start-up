@@ -24,7 +24,7 @@ const SignUp = () => {
     
     const [isClass, setIsClass] = useState(false)
     const [recievedClass, setRecievedClass] = useState([])
-    const [selectedClass, setSelectedClass] = useState('');
+    const [selectedClass, setSelectedClass] = useState('')
 
 
 
@@ -156,38 +156,70 @@ const SignUp = () => {
                             errorText={password.error}
                         />
                        </View>
-                       <View>
-                        <Text style={{color:'red'}}>{selectedUniversity}</Text>
-                       <DropDownPicker
-                            items={universityData}
-                            open={university}
-                            value={selectedUniversity}
-                            setOpen={setUniversity}
-                            // setValue={(value)=> setValue(value)}
-                            setValue={setelectedUniversity}
-                            setItems={setUniversityData}
-                            onSelectItem={handleUniversitySelection}
-                            
-                            dropDownContainerStyle={{
-                                backgroundColor:'white',
-                                position:'absolute'
-                            }}
-                            dropDownDirection='BOTTOM'
+                       <View style={{marginTop:20 ,position: 'relative', zIndex:100 }}>
+                            {university ? 
+                            <DropDownPicker
+                                placeholder='Select University'
+                                items={universityData}                                                  
+                                style={{borderColor:theme.colors.active}}
+                                open={university}
+                                value={selectedUniversity}
+                                setOpen={setUniversity}
+                                setValue={setelectedUniversity}
+                                setItems={setUniversityData}
+                                onSelectItem={handleUniversitySelection}
+                                dropDownContainerStyle={{
+                                backgroundColor: 'white',
+                                position: 'absolute',
+                                }}
+                                dropDownDirection='BOTTOM'
+                            /> : <DropDownPicker
+                                placeholder='Select University'
+                                items={universityData}
+                                open={university}
+                                value={selectedUniversity}
+                                setOpen={setUniversity}
+                                setValue={setelectedUniversity}
+                                setItems={setUniversityData}
+                                onSelectItem={handleUniversitySelection}
+                                dropDownContainerStyle={{
+                                backgroundColor: 'white',
+                                position: 'absolute',
+                                }}
+                                dropDownDirection='BOTTOM'
                             />
-                       </View>
-                       <View style={{marginTop:80}}>
-                        <Text style={{color:'red'}}>{selectedUniversity}</Text>
-                       <DropDownPicker
-                            items={recievedClass}
-                            open={isClass}
-                            value={selectedClass}
-                            setOpen={setIsClass}
-                            // setValue={(value)=> setValue(value)}
-                            setValue={setSelectedClass}
-                            setItems={setRecievedClass}
-                            dropDownDirection='BOTTOM'
-                            />
-                       </View>
+                            }
+                            </View> 
+                            {selectedUniversity ? 
+                            <View style={{ marginTop: 10, position: 'relative', zIndex:0 }}>
+                                <DropDownPicker
+                                    placeholder='Select Class'
+                                    items={recievedClass}
+                                    open={isClass}
+                                    value={selectedClass}
+                                    setOpen={setIsClass}
+                                    setValue={setSelectedClass}
+                                    setItems={setRecievedClass}
+                                    dropDownDirection='BOTTOM'
+                                />
+                            </View>
+                            :
+                            <View style={{ marginTop: 10, position: 'relative', zIndex:0 }}>
+                                <DropDownPicker
+                                    disabled 
+                                    placeholder='Select Class'
+                                    style={{opacity:.3}}
+                                    items={recievedClass}
+                                    open={isClass}
+                                    value={selectedClass}
+                                    setOpen={setIsClass}
+                                    setValue={setSelectedClass}
+                                    setItems={setRecievedClass}
+                                />
+                            </View>}
+
+                    
+
                        {/* <View style={{ width: '100%', marginVertical: 15 }}>
                             <Text style={{ fontSize: 16, marginBottom: 5, color:theme.colors.active, alignSelf: 'flex-start' }}>University:</Text>
                             <SelectDropdown
