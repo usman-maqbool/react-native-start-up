@@ -15,12 +15,10 @@ import { theme } from './Theme'
 import DropDownPicker from 'react-native-dropdown-picker'
 import Button from './Button'
 
-
 const SignUp = ({navigation}) => {
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
     const [loading, setLoading] = useState(false)
-
     const [university, setUniversity] = useState(false);
     const [isClass, setIsClass] = useState(false)
     const [universityData, setUniversityData] = useState([])
@@ -28,7 +26,6 @@ const SignUp = ({navigation}) => {
     const [selectedClass, setSelectedClass] = useState('')
     const [selectedUniversity, setelectedUniversity] = useState('');
     const [classValue, setClassValue] = useState('')
-
 
     useEffect(() => {
         fetchUniversity()
@@ -47,8 +44,6 @@ const SignUp = ({navigation}) => {
                 console.log(response.data);
                 dataArray = response.data.map((univ => ({label:univ.university_name, value:univ.university_name})))
                 setUniversityData(dataArray)
-                // console.log(value, "RREEEEEEEEEEE")
-
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -85,10 +80,6 @@ const SignUp = ({navigation}) => {
         setClassValue(selectedClass.value)
     }
 
-
-
- 
-
     const OnSignUpHandle = () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
@@ -124,13 +115,12 @@ const SignUp = ({navigation}) => {
                     console.log(error.response.status)
                     ToastAndroid.show("Oops! Something went wrong on our end. Our team has been notified and is frantically working to fix the issue.", ToastAndroid.LONG);
                 } else {
-                    ToastAndroid.show('Incorrect usernaem or password!', ToastAndroid.SHORT);
+                    ToastAndroid.show('Oops! Something went wrong on our end.', ToastAndroid.SHORT);
                 }
                 setLoading(false)
             });
         Keyboard.dismiss();
     };
-
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -259,42 +249,6 @@ const SignUp = ({navigation}) => {
                              }
                             </View>
 
-                       {/* <View style={{ width: '100%', marginVertical: 15 }}>
-                            <Text style={{ fontSize: 16, marginBottom: 5, color:theme.colors.active, alignSelf: 'flex-start' }}>University:</Text>
-                            <SelectDropdown
-                            data={university}
-                            // onSelect={(selectedUniversity) => setelectedUniversity(selectedUniversity)}
-                            onSelect={handleUniversitySelection}
-                            defaultButtonText={
-                                <>
-                                <Text>
-                                    Select University {'                                    '}
-                                </Text>
-                                    <ArrowIcon  name="angle-down" size={20} color='black' />
-                                </>
-                              }
-                            buttonStyle={{ borderRadius: 8,  width: '100%' }}
-                            buttonTextStyle={{ fontSize: 16, alignItems:'flex-start', alignContent:'flex-start' }}
-                            dropdownStyle={{ borderRadius: 8, width: '90%' }}
-                            />
-                        </View>
-                        <View style={{width:'100%', marginVertical:15}}>
-                            <SelectDropdown
-                                data={recievedClass}
-                                onSelect={(selectedClass) => setSelectedClass(selectedClass)}
-                                // onSelect={LogoutPress}
-                                defaultButtonText={<>
-                                <Text>
-                                    Select Class {'                                         '}
-                                </Text>
-                                    <ArrowIcon  name="angle-down" size={20} color='black' />
-                                </>}
-                                buttonStyle={{ borderRadius: 8, width:'100%' }}
-                                buttonTextStyle={{ fontSize: 16 }}
-                                dropdownStyle={{ borderRadius: 8, width:'90%' }}
-                            />
-                        </View> */}
-                       
                     </View>
                 </View>
         </TouchableWithoutFeedback>
