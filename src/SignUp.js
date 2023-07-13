@@ -1,5 +1,5 @@
 import { View, Text,  StyleSheet, ToastAndroid,
-    Keyboard, TouchableWithoutFeedback} from 'react-native'
+    Keyboard, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Logo from './Logo'
 import TextInputView from './TextInput'
@@ -76,11 +76,11 @@ const SignUp = ({navigation}) => {
     };
 
     const handleClassSelection = (selectedClass) => {
-        console.log(selectedClass.value)
         setClassValue(selectedClass.value)
     }
 
     const OnSignUpHandle = () => {
+        setLoading(true)
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
         if (emailError || passwordError) {
@@ -101,6 +101,7 @@ const SignUp = ({navigation}) => {
         axios.post(loginUrl, data, { headers })
             .then((response) => {
                 if (response.status === 201) {
+                    setLoading(false)
                     const data = response.data
                     ToastAndroid.show("Student created sucessfully.", ToastAndroid.LONG);
                     navigation.navigate('Registration')
@@ -228,16 +229,26 @@ const SignUp = ({navigation}) => {
                                     setItems={setRecievedClass}
                                 />
                             </View>}
-                            <View style={{marginTop:20, alignItems:'center', zIndex:0, justifyContent:'center'}}>
-                            {selectedClass && selectedUniversity ? 
+                        {selectedClass && selectedUniversity ? 
+                        <View style={{marginTop:20, alignItems:'center', zIndex:0, justifyContent:'center'}}>
+                            {loading ? <TouchableOpacity 
+                            style={[
+                                styles.button, {backgroundColor:theme.colors.primary, marginTop:10}
+                                ]}>
+                                    <ActivityIndicator style={{ marginRight: 10, marginTop: 8, paddingBottom: 5 }} size="large" color="white" />
+                        </TouchableOpacity>  :
                         <Button mode="contained"
-                        style={[
-                            styles.button,
-                            ]}
-                        onPress={OnSignUpHandle}>
-                            Sign up
-                    </Button>    
+                            style={[
+                                styles.button,
+                                ]}
+                            onPress={OnSignUpHandle}>
+                                Sign up
+                        </Button> 
+                        }
+                         </View>
                          :
+                        <View style={{marginTop:20, alignItems:'center', zIndex:0, justifyContent:'center'}}>
+
                         <Button mode="contained"
                         disabled
                             style={[
@@ -246,8 +257,8 @@ const SignUp = ({navigation}) => {
                                 ]}>
                                 Sign up
                         </Button>
-                             }
                             </View>
+                             }
 
                     </View>
                 </View>
