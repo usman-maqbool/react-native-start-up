@@ -163,7 +163,7 @@ const FaceVerification = ({navigation}) => {
                             </View>
                                 <View style={{marginTop:30}}>
 
-                                    <Text style={styles.modalText}>Once the verification process has been initiated, it is not possible to go back. You have the option to click “Close” to restart the process or click “Proceed” to advance to the next step.</Text>
+                                    <Text style={styles.modalText}>Once the verification process has been initiated, it is not possible to go back. You have the option to click “Cancel” to restart the process or click “Proceed” to advance to the next step.</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', marginTop:20, justifyContent: 'space-between' }}>
 
@@ -173,7 +173,7 @@ const FaceVerification = ({navigation}) => {
                                         
                                         onPress={handleLogout}
                                     >
-                                     Cloose
+                                     Cancel
                                     </Button>
                                     <Button mode="contained" style={[
                                         styles.buttonModal,

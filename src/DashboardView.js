@@ -172,7 +172,7 @@ const DashboardView = ({ navigation }) => {
                                 ]}
                                     onPress={handleModalClose}
                                 >
-                                    Cloose
+                                    Cancel
                                 </Button>
                             </View>
                         </View>
