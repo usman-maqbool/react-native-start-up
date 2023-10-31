@@ -38,7 +38,7 @@ export default function Registration({ navigation }) {
             "password": password.value,
         };
 
-        const loginUrl = `${baseUrl}/api/accounts/login/`
+        const loginUrl = `${baseUrl}/accounts/login/`
         axios.post(loginUrl, data, { headers })
             .then((response) => {
                 if (response.status === 200) {
@@ -68,7 +68,7 @@ export default function Registration({ navigation }) {
 
     const privacyUrl = `${baseUrl}/superadmin/privacy-policy`
     const termsUrl = `${baseUrl}/superadmin/terms-condition`
-    const forgetUrl = `${baseUrl}/api/accounts/forget/password`
+    const forgetUrl = `${baseUrl}/accounts/forget/password`
 
     const handlePrivacyLink = (privacyUrl) => {
         Linking.openURL(privacyUrl)

@@ -15,7 +15,7 @@ const ScaningView = ({ navigation }) => {
     const [barcodeData, setBarcodeData] = useState('');
     const [verification, setVerification] = useState(false)
     const [deviceName, setDeviceName] = useState('')
-    const profileUpdateUrl = `${baseUrl}/api/accounts/update/profile/`
+    const profileUpdateUrl = `${baseUrl}/accounts/update/profile/`
     const [userToken, setUserToken] = useState('')
 
     const getMobileName = async () => {
